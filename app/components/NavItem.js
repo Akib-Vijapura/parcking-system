@@ -1,6 +1,7 @@
+// NavItem.jsx
 import { Flex, Icon, Menu, MenuButton, Text, Link } from "@chakra-ui/react";
 
-const NavItem = ({ navSize, title, icon, active }) => {
+const NavItem = ({ navSize, title, icon, active, onClick }) => {
   return (
     <Flex
       mt={30}
@@ -16,7 +17,7 @@ const NavItem = ({ navSize, title, icon, active }) => {
           _hover={{ textDecoration: "none", backgroundColor: "#AEC8CA" }}
           w={navSize === "large" && "100%"}
         >
-          <MenuButton w="100%">
+          <MenuButton w="100%" onClick={onClick}>
             <Flex>
               <Icon as={icon} fontSize="xl" />
               <Text ml={5} display={navSize === "small" ? "none" : "flex"}>

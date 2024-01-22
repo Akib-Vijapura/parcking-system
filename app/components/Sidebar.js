@@ -1,3 +1,4 @@
+// Sidebar.jsx
 "use client";
 import {
   Avatar,
@@ -22,6 +23,11 @@ import NavItem from "./NavItem";
 
 const Sidebar = () => {
   const [navSize, setNavSize] = useState("large");
+  const [activeItem, setActiveItem] = useState("Dashboard");
+
+  const handleItemClick = (title) => {
+    setActiveItem(title);
+  };
 
   return (
     <Flex
@@ -55,13 +61,55 @@ const Sidebar = () => {
           }}
         />
 
-        <NavItem navSize={navSize} icon={FiHome} title="Deshboard" active />
-        <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
-        <NavItem navSize={navSize} icon={FiUser} title="Client" />
-        <NavItem navSize={navSize} icon={FiShoppingCart} title="Orders" />
-        <NavItem navSize={navSize} icon={FiDollarSign} title="Profit" />
-        <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
-        <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
+        <NavItem
+          navSize={navSize}
+          icon={FiHome}
+          title="Dashboard"
+          active={activeItem === "Dashboard"}
+          onClick={() => handleItemClick("Dashboard")}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiCalendar}
+          title="Calendar"
+          active={activeItem === "Calendar"}
+          onClick={() => handleItemClick("Calendar")}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiUser}
+          title="Client"
+          active={activeItem === "Client"}
+          onClick={() => handleItemClick("Client")}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiShoppingCart}
+          title="Orders"
+          active={activeItem === "Orders"}
+          onClick={() => handleItemClick("Orders")}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiDollarSign}
+          title="Profit"
+          active={activeItem === "Profit"}
+          onClick={() => handleItemClick("Profit")}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiBriefcase}
+          title="Reports"
+          active={activeItem === "Reports"}
+          onClick={() => handleItemClick("Reports")}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiSettings}
+          title="Settings"
+          active={activeItem === "Settings"}
+          onClick={() => handleItemClick("Settings")}
+        />
       </Flex>
 
       <Flex
