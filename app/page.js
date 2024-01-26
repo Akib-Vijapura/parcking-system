@@ -15,17 +15,21 @@ import {
 } from "@chakra-ui/react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import {useRouter} from "next/navigation";
+import axios from "axios";
 
 const Login = () => {
   const router = useRouter();
   const formBackground = useColorModeValue("gray.170", "gray.700");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+    isAdmin: false,
+  });
 
   const toast = useToast();
-  const handleSubmit = (event) => {
+  /*const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
 
@@ -53,6 +57,41 @@ const Login = () => {
     }
 
     setIsLoading(false);
+  };*/
+
+  const handleSubmit = async (e) => {
+    setIsLoading(true);
+    e.preventDefault();
+    console.log("before post user=", user)
+    try {
+      const response = await axios.post("/api/login", user);
+      if (response.status === 200) {
+        router.push("/client");
+
+        toast({
+          title: "Login Successfull",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-right",
+        });
+
+      }
+    } catch (error) {
+      console.log("error", error);
+
+      toast({
+        title: "Invalid credentials",
+        description: "Please login with correct credentials",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleTogglePassword = () => {
@@ -70,15 +109,15 @@ const Login = () => {
           boxShadow="lg"
         >
           <Heading mb={6} textAlign="center">
-            LogIn
+            Log In
           </Heading>
           <Input
-            placeholder="johndoe@email.com"
-            type="email"
+            placeholder="client1"
+            type="username"
             variant="filled"
             mb={3}
             isRequired
-            onChange={(event) => setEmail(event.currentTarget.value)}
+            onChange={(e) => setUser({ ...user, username: e.target.value })}
           />
           <InputGroup mb={6}>
             <Input
@@ -86,7 +125,7 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               variant="filled"
               pr="4.5rem"
-              onChange={(event) => setPassword(event.currentTarget.value)}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
             <InputRightElement width="4.5rem">
               <IconButton
