@@ -9,11 +9,12 @@ const NavBar = (props) => {
   return (
     <NavBarContainer {...props}>
       <Image
-          //borderRadius='full'
-          boxSize='100px'
-          src='/logo.png'
-          alt='Water Ville'
-        />
+        //borderRadius='full'
+        boxSize="100px"
+        src="/logo.png"
+        alt="Water Ville"
+        cursor={"pointer"}
+      />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
     </NavBarContainer>
@@ -78,41 +79,39 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to="/faetures">Features </MenuItem>
         <MenuItem to="/pricing">Pricing </MenuItem>
         <MenuItem to="/signup" isLast>
-          <Button
-            size="sm"
-            rounded="md"
-            color={["primary.500", "primary.500", "black", "black"]}
-            bg={["black", "black", "primary.500", "primary.500"]}
-            _hover={{
-              bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
-            }}
-          >
-            Create Account
-          </Button>
+          <Button colorScheme="teal">Logout</Button>
         </MenuItem>
       </Stack>
     </Box>
   );
 };
 
-const NavBarContainer = ({ children, ...props }) => {
-  return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      w="100%"
-      //mb={}
-      p={5}
-      bg={["primary.500", "primary.500", "transparent", "transparent"]}
-      color={["black", "black", "primary.700", "primary.700"]}
-      boxShadow="lg"
-      {...props}
-    >
-      {children}
-    </Flex>
-  );
-};
+ 
+  const NavBarContainer = ({ children, ...props }) => {
+    return (
+      <Flex align="center" justify="center">
+        <Flex
+          as="nav"
+          align="center"
+          justify="space-between"
+          wrap="wrap"
+          w="95%"
+          p={5}
+          m={5} // Adjust margin for spacing around the Navbar
+          bg={["primary.500", "primary.500", "transparent", "transparent"]}
+          color={["black", "black", "primary.700", "primary.700"]}
+          position="relative"
+          style={{
+            borderRadius: "15px",
+            boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+          }}
+          {...props}
+        >
+          {children}
+        </Flex>
+      </Flex>
+    );
+  };
+
 
 export default NavBar;
