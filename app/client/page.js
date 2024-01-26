@@ -10,57 +10,63 @@ import {
   CircularProgress,
   useToast,
   InputGroup,
-  InputRightElement,
-  IconButton,
 } from "@chakra-ui/react";
 import { Radio, RadioGroup, Stack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { Image } from "@chakra-ui/react";
 import NavBar from "../components/clientNavBar";
+import axios from "axios";
 
 const Home = () => {
-  const router = useRouter();
-  const formBackground = useColorModeValue("gray.170", "gray.700");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const router = useRouter();
+  // const formBackground = useColorModeValue("gray.170", "gray.700");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [vehicleNumber, setVehicleNumber] = useState("");
-   const [vehicleType, setVehicleType] = useState("");
+
+  const [vehicle, setVehicle] = useState({
+    vehicleNumber: "",
+    vehicleType: "",
+  });
 
   const toast = useToast();
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
-    // Simulating login validation
-    // Replace with your actual login logic
-    if (vehicleNumber && vehicleType) {
-      // Perform the action with vehicleNumber and vehicleType
+    try {
+      // Check if vehicleNumber and vehicleType are present
+      if (vehicle.vehicleNumber && vehicle.vehicleType) {
+        const response = await axios.post("/api/addvehicle", {
+          vehicleNumber: vehicle.vehicleNumber,
+          vehicleType: vehicle.vehicleType,
+        });
+
+        console.log("API Response:", response.data);
+
+        toast({
+          title: "Vehicle Added Successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-right",
+        });
+      } else {
+        throw new Error("Please fill in all fields");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+
       toast({
-        title: "Vehicle Added Successfully",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-    } else {
-      toast({
-        title: "Invalid input",
-        description: "Please fill in all fields",
+        title: "Error",
+        description: error.message || "Something went wrong",
         status: "error",
         duration: 5000,
         isClosable: true,
         position: "bottom-right",
       });
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
-  };
-
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
   };
 
   return (
@@ -90,16 +96,27 @@ const Home = () => {
               variant="filled"
               mb={12}
               isRequired
-              value={vehicleNumber}
-              onChange={(event) => setVehicleNumber(event.currentTarget.value)}
+              style={{ textTransform: "uppercase" }}
+              value={vehicle.vehicleNumber}
+              onChange={(event) =>
+                setVehicle({
+                  ...vehicle,
+                  vehicleNumber: event.currentTarget.value,
+                })
+              }
             />
             <InputGroup mb={6}>
-              <RadioGroup onChange={setVehicleType} value={vehicleType}>
+              <RadioGroup
+                onChange={(value) =>
+                  setVehicle({ ...vehicle, vehicleType: value })
+                }
+                value={vehicle.vehicleType}
+              >
                 <Stack direction="row">
-                  <Radio value="1">2 Wheeler</Radio>
-                  <Radio value="2">3 Wheeler</Radio>
-                  <Radio value="3">4 Wheeler</Radio>
-                  <Radio value="4">Bus</Radio>
+                  <Radio value="TWO">2 Wheeler</Radio>
+                  <Radio value="THREE">3 Wheeler</Radio>
+                  <Radio value="FOUR">4 Wheeler</Radio>
+                  <Radio value="BUS">Bus</Radio>
                 </Stack>
               </RadioGroup>
             </InputGroup>

@@ -23,7 +23,7 @@ export function middleware(request) {
   if (!isPublicPath && !token.length > 0) {
     console.log('22222')
     // redirect them to the login page
-    return NextResponse.redirect(new URL("/login", request.nextUrl));
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 }
 
