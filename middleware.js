@@ -30,5 +30,5 @@ export function middleware(request) {
 //For our use case, we are only defining three routes that will trigger this middleware: /profile, /login, /sign-up
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/login", "/signup", "/client", "/admin"],
+  matcher: ["/login", "/signup", "/client", "/admin","/client/:path*"],
 };

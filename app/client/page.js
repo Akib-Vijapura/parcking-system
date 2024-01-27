@@ -16,9 +16,10 @@ import { useRouter } from "next/navigation";
 import { Image } from "@chakra-ui/react";
 import NavBar from "../components/clientNavBar";
 import axios from "axios";
+import { RiMotorbikeFill } from "react-icons/ri";
 
 const Home = () => {
-  // const router = useRouter();
+  const router = useRouter();
   // const formBackground = useColorModeValue("gray.170", "gray.700");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +41,10 @@ const Home = () => {
           vehicleNumber: vehicle.vehicleNumber,
           vehicleType: vehicle.vehicleType,
         });
+
+        if (response.status === 200) {
+          router.push("/client/details");
+        }
 
         console.log("API Response:", response.data);
 
@@ -95,7 +100,7 @@ const Home = () => {
               type="string"
               variant="filled"
               mb={12}
-              isRequired
+              // isRequired
               style={{ textTransform: "uppercase" }}
               value={vehicle.vehicleNumber}
               onChange={(event) =>
@@ -113,10 +118,19 @@ const Home = () => {
                 value={vehicle.vehicleType}
               >
                 <Stack direction="row">
-                  <Radio value="TWO">2 Wheeler</Radio>
-                  <Radio value="THREE">3 Wheeler</Radio>
-                  <Radio value="FOUR">4 Wheeler</Radio>
-                  <Radio value="BUS">Bus</Radio>
+                  <Radio value="TWO">
+                    {/* <RiMotorbikeFill style={{ fontSize: "30px" }} /> */}
+                    <Image width="50px" src="/bike.png" />
+                  </Radio>
+                  <Radio value="THREE">
+                    <Image width="40px" src="/auto-ricksaw.png" />
+                  </Radio>
+                  <Radio value="FOUR">
+                    <Image width="50px" src="/car.png" />
+                  </Radio>
+                  <Radio value="BUS">
+                    <Image width="50px" src="/bus.png" />
+                  </Radio>
                 </Stack>
               </RadioGroup>
             </InputGroup>
