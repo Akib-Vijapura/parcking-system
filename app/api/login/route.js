@@ -4,9 +4,8 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
-
 export async function POST(request) {
-  console.log("login POST route")
+  console.log("login POST route");
   await connectDB();
 
   try {
@@ -20,7 +19,7 @@ export async function POST(request) {
     if (!user) {
       return NextResponse.json(
         { error: "User doesn't exists" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -31,7 +30,7 @@ export async function POST(request) {
     if (!valid) {
       return NextResponse.json(
         { error: "Invalid Credentials" },
-        { status: 401 },
+        { status: 401 }
       );
     }
 
@@ -56,9 +55,8 @@ export async function POST(request) {
     });
 
     // set this token in the user cookies
-    response.cookies.set("token", token, { httpOnly: true });
+    response.cookies.set("token", token);
     return response;
-    
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });

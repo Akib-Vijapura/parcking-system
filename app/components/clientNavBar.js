@@ -1,6 +1,17 @@
+"use client";
 import { useState } from "react";
-import { Link, Box, Flex, Text, Button, Stack, Image } from "@chakra-ui/react";
-
+import {
+  Link,
+  Box,
+  Flex,
+  Text,
+  Button,
+  Stack,
+  Image,
+  useToast,
+} from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -51,9 +62,9 @@ const MenuToggle = ({ toggle, isOpen }) => {
   );
 };
 
-const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
+const MenuItem = ({ children, isLast, ...rest }) => {
   return (
-    <Link href={to}>
+    <Link>
       <Text display="block" {...rest}>
         {children}
       </Text>
@@ -62,6 +73,20 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
 };
 
 const MenuLinks = ({ isOpen }) => {
+  const router = useRouter();
+  const toast = useToast();
+  // This will remove cookie and redirect to login page
+  const logoutHandler = () => {
+    deleteCookie("token");
+    router.push("/");
+    toast({
+      title: "Logout Successfull",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom-right",
+    });
+  };
   return (
     <Box
       display={{ base: isOpen ? "block" : "none", md: "block" }}
@@ -78,40 +103,40 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to="/how">How It works </MenuItem>
         <MenuItem to="/faetures">Features </MenuItem>
         <MenuItem to="/pricing">Pricing </MenuItem>
-        <MenuItem to="/signup" isLast>
-          <Button colorScheme="teal">Logout</Button>
+        <MenuItem isLast>
+          <Button onClick={logoutHandler} colorScheme="teal">
+            Logout
+          </Button>
         </MenuItem>
       </Stack>
     </Box>
   );
 };
 
- 
-  const NavBarContainer = ({ children, ...props }) => {
-    return (
-      <Flex align="center" justify="center">
-        <Flex
-          as="nav"
-          align="center"
-          justify="space-between"
-          wrap="wrap"
-          w="95%"
-          p={5}
-          m={5} // Adjust margin for spacing around the Navbar
-          bg={["primary.500", "primary.500", "transparent", "transparent"]}
-          color={["black", "black", "primary.700", "primary.700"]}
-          position="relative"
-          style={{
-            borderRadius: "15px",
-            boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
-          }}
-          {...props}
-        >
-          {children}
-        </Flex>
+const NavBarContainer = ({ children, ...props }) => {
+  return (
+    <Flex align="center" justify="center">
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        w="95%"
+        p={5}
+        m={5} // Adjust margin for spacing around the Navbar
+        bg={["primary.500", "primary.500", "transparent", "transparent"]}
+        color={["black", "black", "primary.700", "primary.700"]}
+        position="relative"
+        style={{
+          borderRadius: "15px",
+          boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+        }}
+        {...props}
+      >
+        {children}
       </Flex>
-    );
-  };
-
+    </Flex>
+  );
+};
 
 export default NavBar;
