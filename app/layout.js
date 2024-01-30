@@ -1,7 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from './providers'
+import { Providers } from "./providers";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Provider } from "react-redux";
+import StoreProvider from "./StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          {children}
+          <StoreProvider>{children}</StoreProvider>
         </Providers>
       </body>
     </html>
