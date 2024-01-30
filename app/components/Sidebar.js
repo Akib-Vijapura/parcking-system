@@ -21,12 +21,13 @@ import {
 } from "react-icons/fi";
 import NavItem from "./NavItem";
 
-const Sidebar = () => {
+const Sidebar = ({ tabChangeHandler }) => {
   const [navSize, setNavSize] = useState("large");
-  const [activeItem, setActiveItem] = useState("Dashboard");
+  const [activeItem, setActiveItem] = useState("Vehicles");
 
   const handleItemClick = (title) => {
     setActiveItem(title);
+    tabChangeHandler(title);
   };
 
   return (
@@ -64,9 +65,9 @@ const Sidebar = () => {
         <NavItem
           navSize={navSize}
           icon={FiHome}
-          title="Dashboard"
-          active={activeItem === "Dashboard"}
-          onClick={() => handleItemClick("Dashboard")}
+          title="Vehicles"
+          active={activeItem === "Vehicles"}
+          onClick={() => handleItemClick("Vehicles")}
         />
         <NavItem
           navSize={navSize}
