@@ -1,5 +1,5 @@
 import connectDB from "@/lib/db";
-import generateToken from "@/lib/generateToken";
+import { setUserCookie } from "@/lib/auth";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
@@ -43,20 +43,21 @@ export async function POST(request) {
       isAdmin: user.isAdmin,
     };
 
-    //const token = await jwt.sign(tokenData, process.env.JWT_TOKEN_SECRET, {
-    //  expiresIn: "1d",
-    //});
-
-    const token = generateToken(user._id);
-
     // create a next response
-    const response = NextResponse.json({
+    var response = NextResponse.json({
       message: "Logged in successfully",
       success: true,
     });
 
+    const tmpUser = {
+      _id: user._id,
+      username: user.username,
+      isAdmin: user.isAdmin
+    }
+
     // set this token in the user cookies
-    response.cookies.set("token", token, { httpOnly: true });
+    // response.cookies.set("token", token, { httpOnly: true });
+    response = await setUserCookie(response , tmpUser);
     return response;
     
   } catch (error) {
