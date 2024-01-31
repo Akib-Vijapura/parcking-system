@@ -19,15 +19,23 @@ import {
   FiBriefcase,
   FiSettings,
 } from "react-icons/fi";
+import { IoCarOutline } from "react-icons/io5";
 import NavItem from "./NavItem";
+import { useRouter } from "next/navigation";
 
 const Sidebar = ({ tabChangeHandler }) => {
   const [navSize, setNavSize] = useState("large");
   const [activeItem, setActiveItem] = useState("Vehicles");
+  const router = useRouter();
 
   const handleItemClick = (title) => {
     setActiveItem(title);
     tabChangeHandler(title);
+    if (title === "Vehicles") {
+      router.push(`/admin`);
+    } else {
+      router.push(`/admin/${title}`);
+    }
   };
 
   return (
@@ -37,7 +45,7 @@ const Sidebar = ({ tabChangeHandler }) => {
       h="95vh"
       marginTop="2.5vh"
       boxShadow="0 4px 12px 0 rgba(0,0,0,0.09)"
-      w={navSize === "small" ? "75px" : "200px"}
+      w={navSize === "small" ? "75px" : "250px"}
       flexDir="column"
       justifyContent="space-between"
       borderRadius={navSize === "small" ? "15px" : "30px"}
@@ -71,10 +79,10 @@ const Sidebar = ({ tabChangeHandler }) => {
         />
         <NavItem
           navSize={navSize}
-          icon={FiCalendar}
-          title="Calendar"
-          active={activeItem === "Calendar"}
-          onClick={() => handleItemClick("Calendar")}
+          icon={IoCarOutline}
+          title="Vehicle Pricing"
+          active={activeItem === "vehiclepricing"}
+          onClick={() => handleItemClick("vehiclepricing")}
         />
         <NavItem
           navSize={navSize}
