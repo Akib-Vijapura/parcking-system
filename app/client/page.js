@@ -43,7 +43,7 @@ const Home = () => {
         });
 
         if (response.status === 200) {
-          router.push("/client/details");
+          router.push(`/client/details/${response.data.vehicle._id}`);
         }
 
         console.log("API Response:", response.data);
