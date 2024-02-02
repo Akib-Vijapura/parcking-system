@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { Flex, useToast } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Heading, SimpleGrid, useToast, Text } from "@chakra-ui/react";
 import AdminTable from "../components/adminTable";
 import axios from "axios";
 
@@ -42,7 +42,56 @@ const page = () => {
     <Flex direction="row" w="full" h="screen">
       <Sidebar />
 
-      <h1>Home page</h1>
+  <Flex justifyContent={"center"}  width={"100%"} ml={5} mt={50}>
+      <SimpleGrid   columns={2} spacing={10} spacingX={40}>
+  <Card maxW='sm' maxH='sm'>
+    <CardHeader>
+      <Heading size='sm'> Customer dashboard</Heading>
+    </CardHeader>
+    <CardBody>
+      <Text>View a summary of all your customers over the last month.</Text>
+    </CardBody>
+    <CardFooter>
+      <Button>View here</Button>
+    </CardFooter>
+  </Card>
+  <Card maxW='sm' maxH='sm'>
+    <CardHeader>
+      <Heading size='sm'> Customer dashboard</Heading>
+    </CardHeader>
+    <CardBody>
+      <Text>View a summary of all your customers over the last month.</Text>
+    </CardBody>
+    <CardFooter>
+      <Button>View here</Button>
+    </CardFooter>
+  </Card>
+  <Card maxW='sm' maxH='sm'>
+    <CardHeader>
+      <Heading size='md'> Customer dashboard</Heading>
+    </CardHeader>
+    <CardBody>
+      <Text>View a summary of all your customers over the last month.</Text>
+    </CardBody>
+    <CardFooter>
+      <Button>View here</Button>
+    </CardFooter>
+  </Card>
+  <Card maxW='sm' maxH='sm'>
+    <CardHeader>
+      <Heading size='sm'> Customer dashboard</Heading>
+    </CardHeader>
+    <CardBody>
+      <Text>View a summary of all your customers over the last month.</Text>
+    </CardBody>
+    <CardFooter>
+      <Button>View here</Button>
+    </CardFooter>
+  </Card>
+</SimpleGrid>
+</Flex>
+
+
     </Flex>
   );
 };
