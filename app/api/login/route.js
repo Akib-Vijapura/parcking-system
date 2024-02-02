@@ -46,6 +46,7 @@ export async function POST(request) {
     var response = NextResponse.json({
       message: "Logged in successfully",
       success: true,
+      redirect: user.isAdmin ? "/admin" : "/client"
     });
 
     const tmpUser = {

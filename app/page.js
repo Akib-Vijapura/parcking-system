@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Flex,
   Heading,
@@ -16,6 +16,7 @@ import {
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import {useRouter} from "next/navigation";
 import axios from "axios";
+import { getCookie } from 'cookies-next';
 
 const Login = () => {
   const router = useRouter();
@@ -24,8 +25,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
     username: "",
-    password: "",
-    isAdmin: false,
+    password: ""
   });
 
   const toast = useToast();
@@ -66,7 +66,8 @@ const Login = () => {
     try {
       const response = await axios.post("/api/login", user);
       if (response.status === 200) {
-        router.push("/client");
+        const redirectPath = response.data.redirect || "/client"
+        router.push(redirectPath);
 
         toast({
           title: "Login Successfull",
@@ -97,6 +98,38 @@ const Login = () => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const verifyTokenHandler = async () => {
+    const token = getCookie('token')
+    try{
+      if(token) {
+        const response = await axios.post("/api/verifyauth", {
+          token: token
+        });
+
+        if (response.status === 200) {
+          //console.log("redirect to=",response.data.redirect)
+          router.push(response.data.redirect);
+        }
+      }
+    }catch(err){
+      //login again, token expired
+      toast({
+        title: "Token expired, login again",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      router.push("/");
+      console.log("token error=",err)
+    }
+  }
+
+  useEffect( () => {
+    verifyTokenHandler()
+
+  }, [])
 
   return (
     <form onSubmit={handleSubmit}>
