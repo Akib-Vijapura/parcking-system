@@ -120,13 +120,13 @@ const Home = () => {
                 <Stack direction="row">
                   <Radio value="TWO">
                     {/* <RiMotorbikeFill style={{ fontSize: "30px" }} /> */}
-                    <Image width="50px" src="/bike.png" />
+                    <Image width="50px" src="/twoWheeler.png" />
                   </Radio>
                   <Radio value="THREE">
-                    <Image width="40px" src="/auto-ricksaw.png" />
+                    <Image width="40px" src="/threeWheeler.png" />
                   </Radio>
                   <Radio value="FOUR">
-                    <Image width="50px" src="/car.png" />
+                    <Image width="50px" src="/fourWheeler.png" />
                   </Radio>
                   <Radio value="BUS">
                     <Image width="50px" src="/bus.png" />
