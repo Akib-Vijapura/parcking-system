@@ -8,11 +8,10 @@ import {
   IconButton,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FiMenu,
   FiHome,
-  FiCalendar,
   FiUser,
   FiShoppingCart,
   FiDollarSign,
@@ -23,18 +22,32 @@ import { IoCarOutline } from "react-icons/io5";
 import NavItem from "./NavItem";
 import { useRouter } from "next/navigation";
 
-const Sidebar = ({ tabChangeHandler }) => {
+const Sidebar = () => {
   const [navSize, setNavSize] = useState("large");
-  const [activeItem, setActiveItem] = useState("Vehicles");
+  const [activeItem, setActiveItem] = useState("Dashboard");
   const router = useRouter();
 
+  useEffect(() => {
+    // Get the active tab from localStorage
+    const storedActiveItem = localStorage.getItem("activeTab");
+    if (storedActiveItem) {
+      setActiveItem(storedActiveItem);
+      // tabChangeHandler(storedActiveItem);
+    }
+  }, []);
+
   const handleItemClick = (title) => {
+    console.log("onclick handler = ", title);
     setActiveItem(title);
-    tabChangeHandler(title);
-    if (title === "Vehicles") {
+    // tabChangeHandler(title);
+    localStorage.setItem("activeTab", title);
+
+    if (title === "Dashboard") {
       router.push(`/admin`);
-    } else {
-      router.push(`/admin/${title}`);
+    } else if (title === "Vehicles") {
+      router.push(`/admin/vehicles`);
+    } else if (title === "vehiclepricing") {
+      router.push(`/admin/vehiclepricing`);
     }
   };
 
@@ -70,6 +83,13 @@ const Sidebar = ({ tabChangeHandler }) => {
           }}
         />
 
+        <NavItem
+          navSize={navSize}
+          icon={FiHome}
+          title="Dashboard"
+          active={activeItem === "Dashboard"}
+          onClick={() => handleItemClick("Dashboard")}
+        />
         <NavItem
           navSize={navSize}
           icon={FiHome}

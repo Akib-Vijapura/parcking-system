@@ -46,15 +46,27 @@ export async function PUT(request) {
         }
       );
     }
-    const res = await VehicleCharges.updateMany(
-      {},
-      {
+
+    let exists = await VehicleCharges.exists({});
+    let res;
+    if (exists == null) {
+      res = await VehicleCharges.create({
         twoWheeler,
         threeWheeler,
         fourWheeler,
         bus,
-      }
-    );
+      });
+    } else {
+      res = await VehicleCharges.updateMany(
+        {},
+        {
+          twoWheeler,
+          threeWheeler,
+          fourWheeler,
+          bus,
+        }
+      );
+    }
 
     return NextResponse.json(
       {

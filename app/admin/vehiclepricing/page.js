@@ -135,7 +135,7 @@ const VehiclePriceUpdate = () => {
         // justifyContent="center"
         alignItems="center"
       >
-        <Sidebar tabChangeHandler={tabChangeHandlerCallback} />
+        <Sidebar  />
         <Box
           className="outer-box"
           ml={"200px"}

@@ -103,11 +103,11 @@ const Details = ({ params }) => {
 
             <Box>
               {vehicleDetails.vehicleType === "TWO" ? (
-                <Image ml={10} src="/bike.png" width={100} />
+                <Image ml={10} src="/twoWheeler.png" width={100} />
               ) : vehicleDetails.vehicleType === "THREE" ? (
-                <Image ml={10} src="/auto-ricksaw.png" width={100} />
+                <Image ml={10} src="/threeWheeler.png" width={100} />
               ) : vehicleDetails.vehicleType === "FOUR" ? (
-                <Image ml={10} src="/car.png" width={100} />
+                <Image ml={10} src="/fourWheeler.png" width={100} />
               ) : (
                 <Image ml={10} src="/bus.png" width={100} />
               )}

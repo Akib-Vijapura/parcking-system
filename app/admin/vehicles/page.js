@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import { Flex, useToast } from "@chakra-ui/react";
-import AdminTable from "../components/adminTable";
+import AdminTable from "../../components/adminTable";
 import axios from "axios";
 
 const page = () => {
@@ -42,7 +42,7 @@ const page = () => {
     <Flex direction="row" w="full" h="screen">
       <Sidebar />
 
-      <h1>Home page</h1>
+      {tableData.length && <AdminTable data={tableData} />}
     </Flex>
   );
 };
