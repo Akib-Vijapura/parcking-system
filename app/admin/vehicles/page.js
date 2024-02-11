@@ -17,7 +17,7 @@ const page = () => {
   };
 
   const getAllVehicles = async () => {
-    const response = await axios.get("/api/getvehicle");
+    const response =  await axios.get("/api/getvehicle");
 
     if (response.status === 200) {
       setTableData(response.data.vehicles);

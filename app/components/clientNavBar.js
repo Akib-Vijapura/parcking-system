@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import {
-  Link,
   Box,
   Flex,
   Text,
@@ -12,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import Link from "next/link";
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -64,11 +64,9 @@ const MenuToggle = ({ toggle, isOpen }) => {
 
 const MenuItem = ({ children, isLast, ...rest }) => {
   return (
-    <Link>
-      <Text display="block" {...rest}>
-        {children}
-      </Text>
-    </Link>
+    <Text display="block" {...rest}>
+      {children}
+    </Text>
   );
 };
 
@@ -99,10 +97,17 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/how">How It works </MenuItem>
-        <MenuItem to="/faetures">Features </MenuItem>
-        <MenuItem to="/pricing">Pricing </MenuItem>
+        <Link href="/client">
+          <MenuItem>Home</MenuItem>
+        </Link>
+
+        <Link href="/client">
+          <MenuItem to="/client">Add Vehicles </MenuItem>
+        </Link>
+
+        <Link href="/admin">
+          <MenuItem to="/admin">Admin</MenuItem>
+        </Link>
         <MenuItem isLast>
           <Button onClick={logoutHandler} colorScheme="teal">
             Logout

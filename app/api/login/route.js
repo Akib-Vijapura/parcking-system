@@ -1,5 +1,5 @@
 import connectDB from "@/lib/db";
-import { setUserCookie } from "@/lib/auth";
+import { setUserCookie, generateUserToken } from "@/lib/auth";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
@@ -42,21 +42,22 @@ export async function POST(request) {
       isAdmin: user.isAdmin,
     };
 
+    const tmpUser = {
+      _id: user._id,
+      username: user.username,
+      isAdmin: user.isAdmin,
+    };
+
     // create a next response
     var response = NextResponse.json({
       message: "Logged in successfully",
       success: true,
+      token: await generateUserToken(tmpUser),
     });
-
-    const tmpUser = {
-      _id: user._id,
-      username: user.username,
-      isAdmin: user.isAdmin
-    }
 
     // set this token in the user cookies
     // response.cookies.set("token", token, { httpOnly: true });
-    response = await setUserCookie(response , tmpUser);
+    response = await setUserCookie(response, tmpUser);
     return response;
   } catch (error) {
     console.log(error);

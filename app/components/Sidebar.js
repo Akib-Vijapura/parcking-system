@@ -7,6 +7,8 @@ import {
   Heading,
   IconButton,
   Text,
+  Image,
+  useToast,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import {
@@ -19,13 +21,17 @@ import {
   FiSettings,
 } from "react-icons/fi";
 import { IoCarOutline } from "react-icons/io5";
+import { RxDashboard } from "react-icons/rx";
+import { IoPricetagsOutline } from "react-icons/io5";
 import NavItem from "./NavItem";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next";
 
 const Sidebar = () => {
   const [navSize, setNavSize] = useState("large");
   const [activeItem, setActiveItem] = useState("Dashboard");
   const router = useRouter();
+  const toast = useToast();
 
   useEffect(() => {
     // Get the active tab from localStorage
@@ -48,7 +54,21 @@ const Sidebar = () => {
       router.push(`/admin/vehicles`);
     } else if (title === "vehiclepricing") {
       router.push(`/admin/vehiclepricing`);
+    } else if (title === "client") {
+      router.push("/client");
     }
+  };
+
+  const logoutHandler = () => {
+    deleteCookie("token");
+    router.push("/");
+    toast({
+      title: "Logout Successfull",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom-right",
+    });
   };
 
   return (
@@ -83,23 +103,24 @@ const Sidebar = () => {
           }}
         />
 
+        <Image src="/logo.png" alt="Logo" />
         <NavItem
           navSize={navSize}
-          icon={FiHome}
+          icon={RxDashboard}
           title="Dashboard"
           active={activeItem === "Dashboard"}
           onClick={() => handleItemClick("Dashboard")}
         />
         <NavItem
           navSize={navSize}
-          icon={FiHome}
+          icon={IoCarOutline}
           title="Vehicles"
           active={activeItem === "Vehicles"}
           onClick={() => handleItemClick("Vehicles")}
         />
         <NavItem
           navSize={navSize}
-          icon={IoCarOutline}
+          icon={IoPricetagsOutline}
           title="Vehicle Pricing"
           active={activeItem === "vehiclepricing"}
           onClick={() => handleItemClick("vehiclepricing")}
@@ -108,10 +129,10 @@ const Sidebar = () => {
           navSize={navSize}
           icon={FiUser}
           title="Client"
-          active={activeItem === "Client"}
-          onClick={() => handleItemClick("Client")}
+          active={activeItem === "client"}
+          onClick={() => handleItemClick("client")}
         />
-        <NavItem
+        {/* <NavItem
           navSize={navSize}
           icon={FiShoppingCart}
           title="Orders"
@@ -138,7 +159,7 @@ const Sidebar = () => {
           title="Settings"
           active={activeItem === "Settings"}
           onClick={() => handleItemClick("Settings")}
-        />
+        /> */}
       </Flex>
 
       <Flex
@@ -149,7 +170,7 @@ const Sidebar = () => {
         mb="4"
       >
         <Divider display={navSize === "small" ? "none" : "flex"} />
-        <Flex mt={4} align="center">
+        <Flex mt={4} align="center" cursor={"pointer"} onClick={logoutHandler}>
           <Avatar size="sm" />
           <Flex
             flexDir="column"
@@ -157,7 +178,7 @@ const Sidebar = () => {
             display={navSize === "small" ? "none" : "flex"}
           >
             <Heading as="h3" size="sm">
-              Demo User
+              Logout
             </Heading>
             <Text color="gray">Admin</Text>
           </Flex>

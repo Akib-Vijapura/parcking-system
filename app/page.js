@@ -12,10 +12,12 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
+  Image,
 } from "@chakra-ui/react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
+import Link from "next/link"
 
 const Login = () => {
   const router = useRouter();
@@ -62,7 +64,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    console.log("before post user=", user)
+    console.log("before post user=", user);
     try {
       const response = await axios.post("/api/login", user);
       if (response.status === 200) {
@@ -75,7 +77,6 @@ const Login = () => {
           isClosable: true,
           position: "bottom-right",
         });
-
       }
     } catch (error) {
       console.log("error", error);
@@ -88,7 +89,6 @@ const Login = () => {
         isClosable: true,
         position: "bottom-right",
       });
-
     } finally {
       setIsLoading(false);
     }
@@ -101,6 +101,7 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Flex h="100vh" alignItems="center" justifyContent="center">
+        <Image mr="100px" width={"600px"} src="/logo.png" />
         <Flex
           flexDirection="column"
           bg={formBackground}
@@ -137,13 +138,19 @@ const Login = () => {
               />
             </InputRightElement>
           </InputGroup>
-          <Button type="submit" colorScheme="teal" mb={8} disabled={isLoading}>
+          <Button
+            type="submit"
+            colorScheme="teal"
+            mb={8}
+            disabled={isLoading}
+          >
             {isLoading ? (
               <CircularProgress isIndeterminate size="24px" color="teal" />
             ) : (
               "Sign In"
             )}
           </Button>
+          <Link href={"/print"}>Print</Link>
         </Flex>
       </Flex>
     </form>
