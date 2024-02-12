@@ -55,7 +55,7 @@ const Sidebar = () => {
     } else if (title === "vehiclepricing") {
       router.push(`/admin/vehiclepricing`);
     } else if (title === "client") {
-      router.push("/client");
+      router.push("/admin/addclient");
     }
   };
 

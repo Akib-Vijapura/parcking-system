@@ -9,7 +9,7 @@ export async function POST(request) {
     await connectDB();
     try {
         const body = await request.json();
-        const {username, password, isAdmin} = body;
+        const {username, password, isAdmin , windowNo} = body;
         console.log("username=", username)
 
         // let's check if the user already exists, if that's case we don't want to create a duplicate user
@@ -24,7 +24,12 @@ export async function POST(request) {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // save the user
-        const newUser = new User({username, password: hashedPassword, isAdmin});
+        const newUser = new User({
+          username,
+          password: hashedPassword,
+          isAdmin,
+          windowNo,
+        });
         const savedUser = await newUser.save();
         return NextResponse.json({message: "User created successfully", success: true, savedUser}, {status: 200});
     } catch (error) {
