@@ -173,7 +173,7 @@ const Page = () => {
               >
                 <Flex justifyContent="space-between" alignItems="center" mb={2}>
                   <Text fontSize="xl" fontWeight="bold" color="teal.500">
-                    User {index + 1}
+                    User {index + 1}  {user.isAdmin && " (Admin)"}
                   </Text>
                   <Flex>
                     <IconButton

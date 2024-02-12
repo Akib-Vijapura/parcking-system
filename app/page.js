@@ -17,7 +17,6 @@ import {
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import Link from "next/link"
 
 const Login = () => {
   const router = useRouter();
@@ -150,7 +149,6 @@ const Login = () => {
               "Sign In"
             )}
           </Button>
-          <Link href={"/print"}>Print</Link>
         </Flex>
       </Flex>
     </form>
