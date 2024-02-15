@@ -94,20 +94,28 @@ export async function GET(req,res) {
 
     // Last Month
 const { startDate: lastMonthStart, endDate: lastMonthEnd } = getStartAndEndDates('months', 1);
-const lastMonthData = await runAggregationQuery(lastMonthStart, lastMonthEnd);
+var lastMonthData = await runAggregationQuery(lastMonthStart, lastMonthEnd);
+//lastMonthData.push({lastMonthStart, lastMonthEnd})
+lastMonthData[0].startDate = lastMonthStart;
+lastMonthData[0].endDate = lastMonthEnd;
 
 // Last Quarter
 const { startDate: lastQuarterStart, endDate: lastQuarterEnd } = getStartAndEndDates('quarters', 1);
-const lastQuarterData = await runAggregationQuery(lastQuarterStart, lastQuarterEnd);
+var lastQuarterData = await runAggregationQuery(lastQuarterStart, lastQuarterEnd);
+lastQuarterData[0].startDate= lastQuarterStart,
+lastQuarterData[0].endDate = lastQuarterEnd;
 
 // Last Year
 const { startDate: lastYearStart, endDate: lastYearEnd } = getStartAndEndDates('years', 1);
-const lastYearData = await runAggregationQuery(lastYearStart, lastYearEnd);
+var lastYearData = await runAggregationQuery(lastYearStart, lastYearEnd);
+lastYearData[0].startDate= lastYearStart,
+lastYearData[0].endDate = lastYearEnd;
 
 // Today
 const { startDate: todayStart, endDate: todayEnd } = getStartAndEndDates('days', 0);
-const todayData = await runAggregationQuery(todayStart, todayEnd);
-
+var todaysData = await runAggregationQuery(todayStart, todayEnd);
+todaysData[0].startDate= todayStart,
+todaysData[0].endDate = todayEnd;
 
     // console.log('Last Month Data:', lastMonthData);
     // console.log('Last Quarter Data:', lastQuarterData);
@@ -116,10 +124,10 @@ const todayData = await runAggregationQuery(todayStart, todayEnd);
 
     //console.log('Types Count:', entriesForToday);
     return NextResponse.json({
-      todayData,
-      lastMonthData,
-      lastQuarterData,
-      lastYearData  
+      todaysData: todaysData,
+      lastMonthData: lastMonthData,
+      lastQuarterData: lastQuarterData,
+      lastYearData: lastYearData
     });
   } catch (error) {
     console.log(error);
