@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 import Sidebar from "@/app/components/Sidebar";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const VehiclePriceUpdate = () => {
   const vehicleTypes = ["twoWheeler", "threeWheeler", "fourWheeler", "bus"];
@@ -136,6 +137,15 @@ const VehiclePriceUpdate = () => {
         alignItems="center"
       >
         <Sidebar  />
+
+        {isLoading ? (<ClipLoader
+        color={"teal"}
+        loading={isLoading}
+        cssOverride={""}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />) : (
         <Box
           className="outer-box"
           ml={"200px"}
@@ -214,6 +224,8 @@ const VehiclePriceUpdate = () => {
             Update All Prices
           </Button>
         </Box>
+
+      )}
       </Flex>
     </>
   );

@@ -19,6 +19,7 @@ import CountUp from 'react-countup';
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { MdOutlineCalendarMonth } from "react-icons/md";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const page = () => {
   const toast = useToast();
@@ -69,7 +70,6 @@ const page = () => {
       setLastMonthsData(response.data.lastMonthData[0])
       setLastQuaterData(response.data.lastQuarterData[0])
       setLastYearsData(response.data.lastYearData[0])
-      setLoading(false)
     } else {
       console.log("FAILED to get VEHICLES");
 
@@ -81,6 +81,8 @@ const page = () => {
         position: "bottom-right",
       });
     }
+
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -93,7 +95,14 @@ const page = () => {
     <Flex direction="row" w="full" h="screen">
       <Sidebar />
 
-      {loading ? "Loading" : 
+      {loading ? ( <ClipLoader
+        color={"teal"}
+        loading={loading}
+        cssOverride={""}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />) : 
 
       (<Flex justifyContent={"center"} width={"100%"} ml={5} mt={50}>
         <SimpleGrid columns={2} spacing={10} spacingX={40}>

@@ -6,7 +6,7 @@ export async function GET() {
   connectDB();
   try {
     const users = await User.find({});
-    console.log(users);
+    //console.log(users);
 
     if (!users) {
       return NextResponse.json(

@@ -5,12 +5,14 @@ import { Flex, useToast, Button } from "@chakra-ui/react";
 import AdminTable from "../../components/adminTable";
 import axios from "axios";
 import { CSVLink } from "react-csv";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const page = () => {
   const toast = useToast();
 
   const [selectedTab, setSelectedTab] = useState();
   const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const tabChangeHandlerCallback = (currTab) => {
     console.log("Selected tab is =", currTab);
@@ -18,10 +20,11 @@ const page = () => {
   };
 
   const getAllVehicles = async () => {
+    setLoading(true)
     const response =  await axios.get("/api/getvehicle");
 
     if (response.status === 200) {
-      setTableData(response.data.vehicles);
+      setTableData(response.data.vehicles);    
     } else {
       console.log("FAILED to get VEHICLES");
 
@@ -33,17 +36,30 @@ const page = () => {
         position: "bottom-right",
       });
     }
+
+    setLoading(false)
   };
 
   useEffect(() => {
-    getAllVehicles();
-  }, [selectedTab]);
+    if(tableData.length <= 0) {
+      getAllVehicles();
+    }
+  }, [selectedTab, tableData]);
 
   return (
     <Flex direction="row" w="full" h="screen">
       <Sidebar />
 
-      {tableData.length &&
+     {loading ? 
+     (<ClipLoader
+        color={"teal"}
+        loading={loading}
+        cssOverride={""}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />) : ( 
+      tableData.length &&
       <>
         <CSVLink
           data={tableData}
@@ -56,8 +72,7 @@ const page = () => {
      
        <AdminTable data={tableData} />
        </>
-       }
-       
+       )}
     </Flex>
   );
 };
