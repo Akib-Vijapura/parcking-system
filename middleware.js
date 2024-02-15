@@ -3,7 +3,7 @@ import { verifyAuth, isAdmin } from "@/lib/auth";
 
 
 // This function can be marked `async` if using `await` inside
-export async function middleware (request) {
+export async function middleware (request ,response) {
   // there are some public paths and there are some protected paths
   // the public path should not be visible when the user has the token
   // the private path should not be visible when the user doesn't have the token
@@ -16,7 +16,13 @@ export async function middleware (request) {
    const verifiedToken = await verifyAuth(request);
   
     //validate the user is authorized
-   const isAdmin_ = isAdmin(verifiedToken);
+  if(verifiedToken == null) {
+    console.log("token verification failed")
+    expireUserCookie(response)
+    return NextResponse.redirect(new URL("/", request.nextUrl));
+  }
+
+  const isAdmin_ = isAdmin(verifiedToken);
   console.log("isAdmin_ = ", isAdmin_)
 
   //https://nextjs.org/docs/messages/returning-response-body-in-middleware
@@ -51,5 +57,5 @@ export async function middleware (request) {
 //For our use case, we are only defining three routes that will trigger this middleware: /profile, /login, /sign-up
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/login", "/signup", "/client", "/admin","/client/:path*"],
+  matcher: ["/login", "/signup", "/client", "/admin", "/admin/:path*", "/client/:path*"],
 };
