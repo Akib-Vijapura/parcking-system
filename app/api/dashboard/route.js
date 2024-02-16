@@ -95,25 +95,40 @@ export async function GET(req,res) {
     // Last Month
 const { startDate: lastMonthStart, endDate: lastMonthEnd } = getStartAndEndDates('months', 1);
 var lastMonthData = await runAggregationQuery(lastMonthStart, lastMonthEnd);
-//lastMonthData.push({lastMonthStart, lastMonthEnd})
+if(lastMonthData.length == 0) {
+  lastMonthData[0].totalVehiclesParked = 0;
+  lastMonthData[0].totalRevenue = 0;
+}
 lastMonthData[0].startDate = lastMonthStart;
 lastMonthData[0].endDate = lastMonthEnd;
 
 // Last Quarter
 const { startDate: lastQuarterStart, endDate: lastQuarterEnd } = getStartAndEndDates('quarters', 1);
 var lastQuarterData = await runAggregationQuery(lastQuarterStart, lastQuarterEnd);
+if(lastQuarterData.length == 0) {
+  lastQuarterData[0].totalVehiclesParked = 0;
+  lastQuarterData[0].totalRevenue = 0;
+}
 lastQuarterData[0].startDate= lastQuarterStart,
 lastQuarterData[0].endDate = lastQuarterEnd;
 
 // Last Year
 const { startDate: lastYearStart, endDate: lastYearEnd } = getStartAndEndDates('years', 1);
 var lastYearData = await runAggregationQuery(lastYearStart, lastYearEnd);
+if(lastYearData.length == 0) {
+  lastYearData[0].totalVehiclesParked = 0;
+  lastYearData[0].totalRevenue = 0;
+}
 lastYearData[0].startDate= lastYearStart,
 lastYearData[0].endDate = lastYearEnd;
 
 // Today
 const { startDate: todayStart, endDate: todayEnd } = getStartAndEndDates('days', 0);
 var todaysData = await runAggregationQuery(todayStart, todayEnd);
+if(todaysData.length == 0) {
+  todaysData[0].totalVehiclesParked = 0;
+  todaysData[0].totalRevenue = 0;
+}
 todaysData[0].startDate= todayStart,
 todaysData[0].endDate = todayEnd;
 

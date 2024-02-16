@@ -2,7 +2,7 @@ import connectDB from "@/lib/db";
 import { setUserCookie, generateUserToken } from "@/lib/auth";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export async function POST(request) {
   console.log("login POST route");
