@@ -2,20 +2,15 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Flex,
   Heading,
   SimpleGrid,
   useToast,
   Text,
+  Box,
 } from "@chakra-ui/react";
-import AdminTable from "../components/adminTable";
 import axios from "axios";
-import CountUp from 'react-countup';
+import CountUp from "react-countup";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { MdOutlineCalendarMonth } from "react-icons/md";
@@ -25,11 +20,11 @@ const page = () => {
   const toast = useToast();
 
   const [selectedTab, setSelectedTab] = useState();
-  const [todaysData, setTodaysData] = useState({})
-  const [lastMonthsData, setLastMonthsData] = useState({})
-  const [lastQuaterData, setLastQuaterData] = useState({})
-  const [lastYearsData, setLastYearsData] = useState({})
-  const [loading, setLoading] = useState(true)
+  const [todaysData, setTodaysData] = useState({});
+  const [lastMonthsData, setLastMonthsData] = useState({});
+  const [lastQuaterData, setLastQuaterData] = useState({});
+  const [lastYearsData, setLastYearsData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const dateOptions = {
     weekday: "short",
@@ -42,17 +37,18 @@ const page = () => {
     timeZone: "Asia/Kolkata",
     //timeZoneName: 'short',
   };
-  
+
   const getDateTimeFormatted = (dateTime) => {
     try {
       const dateObj = new Date(dateTime);
       if (isNaN(dateObj.getTime())) {
         throw new Error("Invalid date format");
       }
-  
-      const formattedDate = new Intl.DateTimeFormat("en-IN", dateOptions).format(
-        dateObj
-      );
+
+      const formattedDate = new Intl.DateTimeFormat(
+        "en-IN",
+        dateOptions
+      ).format(dateObj);
       return formattedDate;
     } catch (error) {
       console.error("Error parsing date:", error);
@@ -60,16 +56,15 @@ const page = () => {
     }
   };
 
-
   const getDashboardData = async () => {
-    setLoading(true)
+    setLoading(true);
     const response = await axios.get("/api/dashboard");
 
     if (response.status === 200) {
-      setTodaysData(response.data.todaysData[0])
-      setLastMonthsData(response.data.lastMonthData[0])
-      setLastQuaterData(response.data.lastQuarterData[0])
-      setLastYearsData(response.data.lastYearData[0])
+      setTodaysData(response.data.todaysData[0]);
+      setLastMonthsData(response.data.lastMonthData[0]);
+      setLastQuaterData(response.data.lastQuarterData[0]);
+      setLastYearsData(response.data.lastYearData[0]);
     } else {
       console.log("FAILED to get VEHICLES");
 
@@ -82,151 +77,110 @@ const page = () => {
       });
     }
 
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
-    if(JSON.stringify(todaysData) === '{}') {
+    if (JSON.stringify(todaysData) === "{}") {
       getDashboardData();
     }
   }, [selectedTab, todaysData, lastMonthsData, lastQuaterData, lastYearsData]);
 
   return (
-    <Flex direction="row" w="full" h="screen">
+    <Flex direction="row" w="full" h="screen" alignItems="flex-start">
       <Sidebar />
 
-      {loading ? ( <ClipLoader
-        color={"teal"}
-        loading={loading}
-        cssOverride={""}
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />) : 
-
-      (<Flex justifyContent={"center"} width={"100%"} ml={5} mt={50}>
-        <SimpleGrid columns={2} spacing={10} spacingX={40}>
-          <Card maxW="sm" maxH="sm">
-            <CardHeader>
-              <Heading size="sm">Today's Total data</Heading>
-            </CardHeader>
-            <CardBody>
-            
-              <div>
-              <MdOutlineCalendarMonth />
-                <Text>
-                  Start: {getDateTimeFormatted(todaysData.startDate)}
-                </Text>
-                <Text>
-                  End: {getDateTimeFormatted(todaysData.endDate)}
-                </Text>
-
-                <FaCar />
-                <Text>
-                 <CountUp end={todaysData.totalVehiclesParked} duration={5}/>
-                </Text>
-
-                <FaIndianRupeeSign /> 
-                <Text>
-                <CountUp end={todaysData.totalRevenue} duration={5}/>
-                </Text>
-              </div>
-            </CardBody>
-            <CardFooter>
-              <Button>View here</Button>
-            </CardFooter>
-          </Card>
-          <Card maxW="sm" maxH="sm">
-            <CardHeader>
-              <Heading size="sm">Last months data</Heading>
-            </CardHeader>
-            <CardBody>
-              <div>
-              <MdOutlineCalendarMonth />
-              <Text>
-                  Start: {getDateTimeFormatted(lastMonthsData.startDate)}
-                  </Text>
-                  <Text>
-                  End: {getDateTimeFormatted(lastMonthsData.endDate)}
-                </Text>
-
-                <FaCar />
-                <Text>
-                  <CountUp end={lastMonthsData.totalVehiclesParked} duration={5}/>
-                </Text>
-                
-                <FaIndianRupeeSign /> 
-                <Text>
-                  <CountUp end={lastMonthsData.totalRevenue} duration={5}/>
-                </Text>
-              </div>
-            </CardBody>
-            <CardFooter>
-              <Button>View here</Button>
-            </CardFooter>
-          </Card>
-          <Card maxW="sm" maxH="sm">
-            <CardHeader>
-              <Heading size="sm">Last quater data</Heading>
-            </CardHeader>
-            <CardBody>
-              <div>
-              <MdOutlineCalendarMonth />
-              <Text>
-                  Start: {getDateTimeFormatted(lastQuaterData.startDate)}
-                  </Text>
-                  <Text>
-                  End: {getDateTimeFormatted(lastQuaterData.endDate)}
-                </Text>
-
-                <FaCar />
-                <Text>
-                 <CountUp end={lastQuaterData.totalVehiclesParked} duration={5}/>
-                </Text>
-
-                <FaIndianRupeeSign /> 
-                <Text>
-                  <CountUp end={lastQuaterData.totalRevenue} duration={5}/>
-                </Text>
-              </div>
-            </CardBody>
-            <CardFooter>
-              <Button>View here</Button>
-            </CardFooter>
-          </Card>
-          <Card maxW="sm" maxH="sm">
-            <CardHeader>
-              <Heading size="sm">Last years data</Heading>
-            </CardHeader>
-            <CardBody>
-            <div>
-            <MdOutlineCalendarMonth />
-              <Text>
-                  Start: {getDateTimeFormatted(lastYearsData.startDate)}
-                </Text>
-                <Text>
-                  End: {getDateTimeFormatted(lastYearsData.endDate)}
-                </Text>
-
-                <FaCar />
-                <Text>
-                  <CountUp end={lastYearsData.totalVehiclesParked} duration={5}/>
-                </Text>
-
-                <FaIndianRupeeSign />
-                <Text>
-                  <CountUp end={lastYearsData.totalRevenue} duration={5}/>
-                </Text>
-              </div>
-            </CardBody>
-            <CardFooter>
-              <Button>View here</Button>
-            </CardFooter>
-          </Card>
-        </SimpleGrid>
-      </Flex>)
-
-  }
+      {loading ? (
+        <Flex
+          justifyContent="center"
+          alignItems="center"
+          width="100%"
+          height="100vh"
+        >
+          <ClipLoader
+            color="teal"
+            loading={loading}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </Flex>
+      ) : (
+        <Flex justifyContent="center" width="100%" mt={20}>
+          <SimpleGrid columns={[1, 2]} spacingX={10} spacingY={10}>
+            {[
+              {
+                data: todaysData,
+                title: "Today's Total Data",
+                bg: "#2D9596",
+              },
+              {
+                data: lastMonthsData,
+                title: "Last Month's Total Data",
+                bg: "#59B4C3",
+              },
+              {
+                data: lastQuaterData,
+                title: "Last Quarter's Total Data",
+                bg: "blue.500",
+              },
+              {
+                data: lastYearsData,
+                title: "Last Year's Total Data",
+                bg: "#836FFF",
+              },
+            ].map(({ data, title, bg }, index) => (
+              <Box
+                key={index}
+                maxW="lg"
+                borderWidth="1px"
+                borderRadius="lg"
+                overflow="hidden"
+                borderColor="gray.300"
+                _hover={{
+                  transform: "scale(1.05)",
+                  transition: "transform 0.3s ease",
+                  shadow: "lg",
+                }}
+              >
+                <Box bg={bg} color="white" p={10} borderRadius="lg">
+                  <Heading size="lg" mb={4}>
+                    {title}
+                  </Heading>
+                  <Flex direction="column">
+                    <Flex alignItems="center" mb={2}>
+                      <MdOutlineCalendarMonth />
+                      <Text as="span" ml={2} fontWeight="bold">
+                        From :
+                      </Text>
+                      {getDateTimeFormatted(data.startDate)}
+                    </Flex>
+                    <Flex alignItems="center" mb={2}>
+                      <MdOutlineCalendarMonth />
+                      <Text as="span" ml={2} fontWeight="bold">
+                        To :
+                      </Text>{" "}
+                      {getDateTimeFormatted(data.endDate)}
+                    </Flex>
+                    <Flex alignItems="center" mb={1}>
+                      <FaCar size={40} />
+                      <Text fontSize="3xl" ml={2} fontWeight="bold">
+                        <CountUp end={data.totalVehiclesParked} duration={5} />
+                      </Text>
+                    </Flex>
+                    <Flex alignItems="center">
+                      <FaIndianRupeeSign size={40} />
+                      <Text fontSize="4xl" ml={2} fontWeight="bold">
+                        <CountUp end={data.totalRevenue} duration={5} />
+                      </Text>
+                    </Flex>
+                  </Flex>
+                </Box>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Flex>
+      )}
     </Flex>
   );
 };
