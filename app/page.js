@@ -63,11 +63,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    console.log("before post user=", user);
+    //console.log("before post user=", user);
     try {
       const response = await axios.post("/api/login", user);
       if (response.status === 200) {
-        router.push("/client");
+        router.push("/admin");
 
         toast({
           title: "Login Successfull",
