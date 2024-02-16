@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -27,28 +27,19 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const VehiclePriceUpdate = () => {
   const vehicleTypes = ["twoWheeler", "threeWheeler", "fourWheeler", "bus"];
-  const [prices, setPrices] = useState({}); // Initialize empty prices object
+  const [prices, setPrices] = useState({});
   const [selectedTab, setSelectedTab] = useState();
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
-  const [errorMessage, setErrorMessage] = useState(null); // Handle errors
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
   const toast = useToast();
-  // Fetch vehicle prices from API on component mount
+
   useEffect(() => {
     setIsLoading(true);
     setErrorMessage(null);
     getAllVehicles()
       .then(() => {
         setIsLoading(false);
-        // toast({
-        //   title: "Vehicle Prices Loaded!",
-        //   description: "Data ready for editing.",
-        //   status: "info",
-        //   duration: 5000, // Adjust duration as needed
-        //   isClosable: true,
-        //   position: "bottom-right",
-        // });
       })
       .catch((error) => {
         setIsLoading(false);
@@ -64,7 +55,6 @@ const VehiclePriceUpdate = () => {
   }, []);
 
   const tabChangeHandlerCallback = (currTab) => {
-    console.log("Selected tab is =", currTab);
     setSelectedTab(currTab);
   };
 
@@ -75,7 +65,7 @@ const VehiclePriceUpdate = () => {
       if (response.status === 200) {
         const data = response.data.res[0];
         setPrices({
-          ...data, // Use data directly to set prices
+          ...data,
         });
       } else {
         setErrorMessage("Failed to fetch vehicle prices");
@@ -133,99 +123,105 @@ const VehiclePriceUpdate = () => {
         direction="row"
         w="full"
         h="screen"
-        // justifyContent="center"
         alignItems="center"
+        // justifyContent="center"
       >
-        <Sidebar  />
+        <Sidebar />
 
-        {isLoading ? (<ClipLoader
-        color={"teal"}
-        loading={isLoading}
-        cssOverride={""}
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />) : (
-        <Box
-          className="outer-box"
-          ml={"200px"}
-          mt={"80px"}
-          p={4}
-          rounded={"10px"}
-          shadow="md"
-          bg="white"
-          w="80%"
-          maxW="800px"
-        >
-          <Heading textAlign={"center"} mb={4} color="teal.500">
-            Update Vehicle Prices
-          </Heading>
-
-          {/* {isLoading && <Text>Loading vehicle prices...</Text>}
-          {errorMessage && <Text color="red">{errorMessage}</Text>} */}
-
-          <Grid templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} gap={6}>
-            {vehicleTypes.map((type) => (
-              <Card key={type} p={4} rounded shadow>
-                {/* <Text fontSize="lg" fontWeight="bold" color="teal.500"> */}
-                {/* {type} */}
-                <Image width={"70px"} src={`/${type}.png`} />
-                {/* </Text> */}
-                <Box mt={1}>
-                  <Text color="gray.500">Current Price:</Text>
-                  <InputGroup>
-                    <InputLeftAddon children="Rs." />
-                    <Input
-                      placeholder="Enter Price"
-                      type="number"
-                      value={prices[type]}
-                      onChange={(e) => handlePriceChange(type, e.target.value)}
-                      disabled={isLoading} // Disable input during loading
-                    />
-                  </InputGroup>
-                </Box>
-              </Card>
-            ))}
-          </Grid>
-          <Modal
-            isOpen={isConfirmModalOpen}
-            onClose={() => setIsConfirmModalOpen(false)}
+        {isLoading ? (
+          <Box
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
           >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Confirm Price Updates</ModalHeader>
-              <ModalBody>
-                <Text>Are you sure you want to update vehicle charges?</Text>
-              </ModalBody>
-              <ModalFooter>
-                <ButtonGroup justifyContent="center">
-                  <Button
-                    colorScheme="teal"
-                    mr={3}
-                    onClick={handleConfirmUpdate}
-                  >
-                    Yes
-                  </Button>
-                  <Button onClick={() => setIsConfirmModalOpen(false)}>
-                    No
-                  </Button>
-                </ButtonGroup>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-          <Button
-            mt={4}
-            colorScheme="teal"
-            onClick={handleUpdateAllPrices}
-            size={"lg"}
-            w="100%"
-            disabled={isLoading}
+            <ClipLoader
+              color="teal"
+              loading={isLoading}
+              size={50}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </Box>
+        ) : (
+          <Box
+            className="outer-box"
+            ml={"200px"}
+            mt={"80px"}
+            p={4}
+            rounded={"10px"}
+            shadow="md"
+            bg="white"
+            w="80%"
+            maxW="800px"
           >
-            Update All Prices
-          </Button>
-        </Box>
+            <Heading textAlign={"center"} mb={4} color="teal.500">
+              Update Vehicle Prices
+            </Heading>
 
-      )}
+            <Grid
+              templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
+              gap={6}
+            >
+              {vehicleTypes.map((type) => (
+                <Card key={type} p={4} rounded shadow>
+                  <Image width={"70px"} src={`/${type}.png`} />
+                  <Box mt={1}>
+                    <Text color="gray.500">Current Price:</Text>
+                    <InputGroup>
+                      <InputLeftAddon children="Rs." />
+                      <Input
+                        placeholder="Enter Price"
+                        type="number"
+                        value={prices[type]}
+                        onChange={(e) =>
+                          handlePriceChange(type, e.target.value)
+                        }
+                        disabled={isLoading}
+                      />
+                    </InputGroup>
+                  </Box>
+                </Card>
+              ))}
+            </Grid>
+            <Modal
+              isOpen={isConfirmModalOpen}
+              onClose={() => setIsConfirmModalOpen(false)}
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Confirm Price Updates</ModalHeader>
+                <ModalBody>
+                  <Text>Are you sure you want to update vehicle charges?</Text>
+                </ModalBody>
+                <ModalFooter>
+                  <ButtonGroup justifyContent="center">
+                    <Button
+                      colorScheme="teal"
+                      mr={3}
+                      onClick={handleConfirmUpdate}
+                    >
+                      Yes
+                    </Button>
+                    <Button onClick={() => setIsConfirmModalOpen(false)}>
+                      No
+                    </Button>
+                  </ButtonGroup>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+            <Button
+              mt={4}
+              colorScheme="teal"
+              onClick={handleUpdateAllPrices}
+              size={"lg"}
+              w="100%"
+              disabled={isLoading}
+            >
+              Update All Prices
+            </Button>
+          </Box>
+        )}
       </Flex>
     </>
   );

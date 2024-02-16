@@ -18,6 +18,7 @@ import {
   Text,
   IconButton,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, AddIcon } from "@chakra-ui/icons";
 import Sidebar from "@/app/components/Sidebar";
@@ -34,10 +35,12 @@ const Page = () => {
   const [showEditConfirmation, setShowEditConfirmation] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedUserIndex, setSelectedUserIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
 
   const getUsers = async () => {
     try {
+      setLoading(true);
       const res = await axios.get("/api/user/getusers");
       setUsers(res.data.users);
     } catch (error) {
@@ -48,12 +51,16 @@ const Page = () => {
         isClosable: true,
         position: "bottom-right",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    if (users.length == 0) {
+      getUsers();
+    }
+  }, [users]);
 
   const handleSubmit = async () => {
     try {
@@ -75,16 +82,20 @@ const Page = () => {
         });
         setEditingIndex(null);
       } else {
-        const newUser = { username, password, windowNo };
-        setUsers([...users, newUser]);
-        await axios.post("/api/signup", newUser);
-        toast({
-          title: "User added successfully",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom-right",
-        });
+        const newUserDetails = { username, password, windowNo };
+        const res = await axios.post("/api/signup", newUserDetails);
+
+        if (res.status === 200) {
+          const newUser = res.data.savedUser;
+          setUsers([...users, newUser]);
+          toast({
+            title: "User added successfully",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom-right",
+          });
+        }
       }
 
       setIsOpen(false);
@@ -124,6 +135,8 @@ const Page = () => {
 
   const handleConfirmDelete = async () => {
     try {
+      console.log("selected user = ", users[selectedUserIndex]);
+      console.log("id = ", users[selectedUserIndex]._id);
       await axios.delete(`/api/user/${users[selectedUserIndex]._id}`);
       const updatedUsers = [...users];
       updatedUsers.splice(selectedUserIndex, 1);
@@ -149,64 +162,80 @@ const Page = () => {
 
   return (
     <>
-      <Flex alignItems="center" p={4}>
-        <Sidebar />
-        <Flex direction="column" flex="1" ml={20} mr={20}>
-          <Button
-            onClick={() => setIsOpen(true)}
-            leftIcon={<AddIcon />}
-            colorScheme="teal"
-            mb={4}
-          >
-            Add User
-          </Button>
-          <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4}>
-            {users.map((user, index) => (
-              <Box
-                key={index}
-                p={4}
-                shadow="md"
-                borderWidth="1px"
-                borderRadius="md"
-                bg="white"
-                _hover={{ boxShadow: "lg" }}
-              >
-                <Flex justifyContent="space-between" alignItems="center" mb={2}>
-                  <Text fontSize="xl" fontWeight="bold" color="teal.500">
-                    User {index + 1}  {user.isAdmin && " (Admin)"}
-                  </Text>
-                  <Flex>
-                    <IconButton
-                      aria-label="Edit"
-                      icon={<EditIcon />}
-                      colorScheme="blue"
-                      size="sm"
-                      onClick={() => handleEdit(index)}
-                      mr={2}
-                      variant="ghost"
-                    />
-                    <IconButton
-                      aria-label="Delete"
-                      icon={<DeleteIcon />}
-                      colorScheme="red"
-                      size="sm"
-                      onClick={() => handleDelete(index)}
-                      variant="ghost"
-                    />
-                  </Flex>
-                </Flex>
-                <Text>
-                  <strong>Username:</strong> {user.username}
-                </Text>
-                <Text>{/* <strong>Password:</strong> {user.password} */}</Text>
-                <Text>
-                  <strong>Window Number:</strong> {user.windowNo}
-                </Text>
-              </Box>
-            ))}
-          </Grid>
+      {loading && (
+        <Flex justifyContent="center" alignItems="center" height="100vh">
+          <Spinner color="teal" size="xl" />
         </Flex>
-      </Flex>
+      )}
+      {!loading && (
+        <Flex alignItems="center" p={4}>
+          <Sidebar />
+          <Flex direction="column" flex="1" ml={20} mr={20}>
+            <Button
+              onClick={() => setIsOpen(true)}
+              leftIcon={<AddIcon />}
+              colorScheme="teal"
+              mb={4}
+            >
+              Add User
+            </Button>
+            <Grid
+              templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+              gap={4}
+            >
+              {users.map((user, index) => (
+                <Box
+                  key={index}
+                  p={4}
+                  shadow="md"
+                  borderWidth="1px"
+                  borderRadius="md"
+                  bg="white"
+                  _hover={{ boxShadow: "lg" }}
+                >
+                  <Flex
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb={2}
+                  >
+                    <Text fontSize="xl" fontWeight="bold" color="teal.500">
+                      User {index + 1} {user.isAdmin && " (Admin)"}
+                    </Text>
+                    <Flex>
+                      <IconButton
+                        aria-label="Edit"
+                        icon={<EditIcon />}
+                        colorScheme="blue"
+                        size="sm"
+                        onClick={() => handleEdit(index)}
+                        mr={2}
+                        variant="ghost"
+                      />
+                      <IconButton
+                        aria-label="Delete"
+                        icon={<DeleteIcon />}
+                        colorScheme="red"
+                        size="sm"
+                        onClick={() => handleDelete(index)}
+                        variant="ghost"
+                      />
+                    </Flex>
+                  </Flex>
+                  <Text>
+                    <strong>Username:</strong> {user.username}
+                  </Text>
+                  <Text>
+                    {/* <strong>Password:</strong> {user.password} */}
+                  </Text>
+                  <Text>
+                    <strong>Window Number:</strong> {user.windowNo}
+                  </Text>
+                </Box>
+              ))}
+            </Grid>
+          </Flex>
+        </Flex>
+      )}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <ModalOverlay />
         <ModalContent>
