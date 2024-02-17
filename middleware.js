@@ -18,7 +18,6 @@ export async function middleware (request ,response) {
     //validate the user is authorized
   if(verifiedToken == null) {
     console.log("token verification failed")
-    expireUserCookie(response)
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
