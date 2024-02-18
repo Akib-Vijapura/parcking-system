@@ -18,6 +18,14 @@ const parkingSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  username: {
+    type: String,
+    required: [true, "Username entry is required for Parking Schema"]
+  },
+  windowNo: {
+    type: String,
+    required: [true, "windowNo entry is required for Parking Schema"]
+  }
 });
 
 const Parking =
