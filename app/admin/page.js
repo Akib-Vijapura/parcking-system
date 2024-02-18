@@ -8,15 +8,18 @@ import {
   useToast,
   Text,
   Box,
+  IconButton,
+  Grid,
 } from "@chakra-ui/react";
 import axios from "axios";
 import CountUp from "react-countup";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { MdOutlineCalendarMonth } from "react-icons/md";
+import { FiGrid, FiList } from "react-icons/fi";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const page = () => {
+const Page = () => {
   const toast = useToast();
 
   const [selectedTab, setSelectedTab] = useState();
@@ -25,6 +28,7 @@ const page = () => {
   const [lastQuaterData, setLastQuaterData] = useState({});
   const [lastYearsData, setLastYearsData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState("grid");
 
   const dateOptions = {
     weekday: "short",
@@ -35,7 +39,6 @@ const page = () => {
     minute: "2-digit",
     second: "2-digit",
     timeZone: "Asia/Kolkata",
-    //timeZoneName: 'short',
   };
 
   const getDateTimeFormatted = (dateTime) => {
@@ -106,83 +109,179 @@ const page = () => {
           />
         </Flex>
       ) : (
-        <Flex justifyContent="center" width="100%" mt={20}>
-          <SimpleGrid columns={[1, 2]} spacingX={10} spacingY={10}>
-            {[
-              {
-                data: todaysData,
-                title: "Today's Total Data",
-                bg: "#2D9596",
-              },
-              {
-                data: lastMonthsData,
-                title: "Last Month's Total Data",
-                bg: "#59B4C3",
-              },
-              {
-                data: lastQuaterData,
-                title: "Last Quarter's Total Data",
-                bg: "blue.500",
-              },
-              {
-                data: lastYearsData,
-                title: "Last Year's Total Data",
-                bg: "#836FFF",
-              },
-            ].map(({ data, title, bg }, index) => (
-              <Box
-                key={index}
-                maxW="lg"
-                borderWidth="1px"
-                borderRadius="lg"
-                overflow="hidden"
-                borderColor="gray.300"
-                _hover={{
-                  transform: "scale(1.05)",
-                  transition: "transform 0.3s ease",
-                  shadow: "lg",
-                }}
-              >
-                <Box bg={bg} color="white" p={10} borderRadius="lg">
-                  <Heading size="lg" mb={4}>
-                    {title}
-                  </Heading>
-                  <Flex direction="column">
-                    <Flex alignItems="center" mb={2}>
-                      <MdOutlineCalendarMonth />
-                      <Text as="span" ml={2} fontWeight="bold">
-                        From :
-                      </Text>
-                      {getDateTimeFormatted(data.startDate)}
+        <Flex justifyContent="center" width="100%" mt={20} position="relative">
+          <IconButton
+            aria-label="Toggle View"
+            icon={viewMode === "grid" ? <FiList /> : <FiGrid />}
+            colorScheme="teal"
+            size="lg"
+            position="absolute"
+            top={4}
+            right={4}
+            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
+          />
+          {viewMode === "grid" ? (
+            <SimpleGrid columns={[1, 2]} spacingX={10} spacingY={10}>
+              {[
+                {
+                  data: todaysData,
+                  title: "Today's Total Data",
+                  bg: "#2D9596",
+                },
+                {
+                  data: lastMonthsData,
+                  title: "Last Month's Total Data",
+                  bg: "#59B4C3",
+                },
+                {
+                  data: lastQuaterData,
+                  title: "Last Quarter's Total Data",
+                  bg: "blue.500",
+                },
+                {
+                  data: lastYearsData,
+                  title: "Last Year's Total Data",
+                  bg: "#836FFF",
+                },
+              ].map(({ data, title, bg }, index) => (
+                <Box
+                  key={index}
+                  maxW="lg"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  borderColor="gray.300"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "transform 0.3s ease",
+                    shadow: "lg",
+                  }}
+                >
+                  <Box bg={bg} color="white" p={10} borderRadius="lg">
+                    <Heading size="lg" mb={4}>
+                      {title}
+                    </Heading>
+                    <Flex direction="column">
+                      <Flex alignItems="center" mb={2}>
+                        <MdOutlineCalendarMonth />
+                        <Text as="span" ml={2} fontWeight="bold">
+                          From :
+                        </Text>
+                        {getDateTimeFormatted(data.startDate)}
+                      </Flex>
+                      <Flex alignItems="center" mb={2}>
+                        <MdOutlineCalendarMonth />
+                        <Text as="span" ml={2} fontWeight="bold">
+                          To :
+                        </Text>{" "}
+                        {getDateTimeFormatted(data.endDate)}
+                      </Flex>
+                      <Flex alignItems="center" mb={1}>
+                        <FaCar size={40} />
+                        <Text fontSize="3xl" ml={2} fontWeight="bold">
+                          <CountUp
+                            end={data.totalVehiclesParked}
+                            duration={5}
+                          />
+                        </Text>
+                      </Flex>
+                      <Flex alignItems="center">
+                        <FaIndianRupeeSign size={40} />
+                        <Text fontSize="4xl" ml={2} fontWeight="bold">
+                          <CountUp end={data.totalRevenue} duration={5} />
+                        </Text>
+                      </Flex>
                     </Flex>
-                    <Flex alignItems="center" mb={2}>
-                      <MdOutlineCalendarMonth />
-                      <Text as="span" ml={2} fontWeight="bold">
-                        To :
-                      </Text>{" "}
-                      {getDateTimeFormatted(data.endDate)}
-                    </Flex>
-                    <Flex alignItems="center" mb={1}>
-                      <FaCar size={40} />
-                      <Text fontSize="3xl" ml={2} fontWeight="bold">
-                        <CountUp end={data.totalVehiclesParked} duration={5} />
-                      </Text>
-                    </Flex>
-                    <Flex alignItems="center">
-                      <FaIndianRupeeSign size={40} />
-                      <Text fontSize="4xl" ml={2} fontWeight="bold">
-                        <CountUp end={data.totalRevenue} duration={5} />
-                      </Text>
-                    </Flex>
-                  </Flex>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
-          </SimpleGrid>
+              ))}
+            </SimpleGrid>
+          ) : (
+            <SimpleGrid columns={[1, 2]} spacingX={10} spacingY={10}>
+              {[
+                {
+                  data: todaysData,
+                  title: "Window 1",
+                  bg: "#2D9596",
+                },
+                {
+                  data: lastMonthsData,
+                  title: "Window 2",
+                  bg: "#59B4C3",
+                },
+                {
+                  data: lastQuaterData,
+                  title: "Window 3",
+                  bg: "blue.500",
+                },
+                {
+                  data: lastYearsData,
+                  title: "Window 4",
+                  bg: "#836FFF",
+                },
+                {
+                  data: lastYearsData,
+                  title: "Window 5",
+                  bg: "#836FFF",
+                },
+                {
+                  data: lastYearsData,
+                  title: "Window 6",
+                  bg: "#836FFF",
+                },
+              ].map(({ data, title, bg }, index) => (
+                <Box
+                  key={index}
+                  p={6}
+                  shadow="md"
+                  borderWidth="1px"
+                  borderRadius="md"
+                  bg="white"
+                  _hover={{ boxShadow: "lg" }}
+                  width={"100%"}
+                  mb={4}
+                >
+                  <Flex
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb={2}
+                  >
+                    <Text fontSize="xl" fontWeight="bold" color="teal.500">
+                      {title}
+                    </Text>
+                  </Flex>
+                  <Text>
+                    <Text as="span" fontWeight="bold">
+                      From:{" "}
+                    </Text>
+                    {getDateTimeFormatted(data.startDate)}
+                  </Text>
+                  <Text>
+                    <Text as="span" fontWeight="bold">
+                      To:{" "}
+                    </Text>
+                    {getDateTimeFormatted(data.endDate)}
+                  </Text>
+                  <Text>
+                    <Text as="span" fontWeight="bold">
+                      Total Vehicles Parked:{" "}
+                    </Text>
+                    <CountUp end={data.totalVehiclesParked} duration={5} />
+                  </Text>
+                  <Text>
+                    <Text as="span" fontWeight="bold">
+                      Total Revenue:{" "}
+                    </Text>
+                    <CountUp end={data.totalRevenue} duration={5} />
+                  </Text>
+                </Box>
+              ))}
+            </SimpleGrid>
+          )}
         </Flex>
       )}
     </Flex>
   );
 };
 
-export default page;
+export default Page;
