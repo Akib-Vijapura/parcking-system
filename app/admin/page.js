@@ -10,6 +10,7 @@ import {
   Box,
   IconButton,
   Grid,
+  Image
 } from "@chakra-ui/react";
 import axios from "axios";
 import CountUp from "react-countup";
@@ -29,6 +30,7 @@ const Page = () => {
   const [lastYearsData, setLastYearsData] = useState({});
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState("grid");
+  const [countersData, setCountersData] = useState([]);
 
   const dateOptions = {
     weekday: "short",
@@ -59,8 +61,57 @@ const Page = () => {
     }
   };
 
+  const getCounterData = (counterNo) => {
+    const counterData = countersData.find((window) => window.windowNo === counterNo);
+  
+    if (!counterData) {
+      console.log(`Counter ${counterNo} not found.`);
+      return null;
+    }
+  
+    // Calculate total amount and count for each vehicle type
+    const result = {
+      totalAmount: counterData.entries.reduce((total, entry) => total + entry.vehicleCharge, 0),
+      vehicleTypeCounts: {},
+      totalVehicles: 0
+    };
+  
+    counterData.entries.forEach((entry) => {
+      const vehicleType = entry.vehicleType;
+      if (!result.vehicleTypeCounts[vehicleType]) {
+        result.vehicleTypeCounts[vehicleType] = 1;
+      } else {
+        result.vehicleTypeCounts[vehicleType]++;
+      }
+      result.totalVehicles++;
+    });
+  
+    return result;
+  };
+
+  const getCountersData = async () => {
+    try{
+    const response = await axios.get("/api/today");
+
+      if (response.status === 200) {
+        setCountersData(response.data.groupedEntries)
+      }
+    } catch (err) {
+      console.log("FAILED to get TODAY's COUNTER DATA err=", err);
+
+      toast({
+        title: "Failed to counters data, try again",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+    }
+
+  };
+
   const getDashboardData = async () => {
-    setLoading(true);
+    
     try{
     const response = await axios.get("/api/dashboard");
 
@@ -82,14 +133,21 @@ const Page = () => {
       });
     }
 
-    setLoading(false);
+    
   };
 
   useEffect(() => {
+    setLoading(true);
     if (JSON.stringify(todaysData) === "{}") {
       getDashboardData();
     }
-  }, [selectedTab, todaysData, lastMonthsData, lastQuaterData, lastYearsData]);
+    
+    if(countersData.length <= 0) {
+      getCountersData();
+    }
+
+    setLoading(false);
+  }, [selectedTab, todaysData, lastMonthsData, lastQuaterData, lastYearsData, countersData]);
 
   return (
     <Flex direction="row" w="full" h="screen" alignItems="flex-start">
@@ -202,32 +260,32 @@ const Page = () => {
             <SimpleGrid columns={[1, 2]} spacingX={10} spacingY={10}>
               {[
                 {
-                  data: todaysData,
+                  data: getCounterData('1'),
                   title: "Window 1",
                   bg: "#2D9596",
                 },
                 {
-                  data: lastMonthsData,
+                  data: getCounterData('2'),
                   title: "Window 2",
                   bg: "#59B4C3",
                 },
                 {
-                  data: lastQuaterData,
+                  data: getCounterData('3'),
                   title: "Window 3",
                   bg: "blue.500",
                 },
                 {
-                  data: lastYearsData,
+                  data: getCounterData('4'),
                   title: "Window 4",
                   bg: "#836FFF",
                 },
                 {
-                  data: lastYearsData,
+                  data: getCounterData('5'),
                   title: "Window 5",
                   bg: "#836FFF",
                 },
                 {
-                  data: lastYearsData,
+                  data: getCounterData('6'),
                   title: "Window 6",
                   bg: "#836FFF",
                 },
@@ -252,7 +310,7 @@ const Page = () => {
                       {title}
                     </Text>
                   </Flex>
-                  <Text>
+                  {/*<Text>
                     <Text as="span" fontWeight="bold">
                       From:{" "}
                     </Text>
@@ -263,19 +321,43 @@ const Page = () => {
                       To:{" "}
                     </Text>
                     {getDateTimeFormatted(data.endDate)}
+              </Text>*/}
+                <Flex direction={"row"}>
+                  <div>
+                  <Image src="/twoWheeler.png" width={10} />
+                  <CountUp end={data?.vehicleTypeCounts.TWO ? data.vehicleTypeCounts.TWO : 0} duration={5} />
+                  </div>
+
+                  <div style={{marginLeft: 30}}>
+                  <Image src="/threeWheeler.png" width={10} />
+                  <CountUp end={data?.vehicleTypeCounts.THREE ? data.vehicleTypeCounts.THREE : 0} duration={5} />
+                  </div>
+
+                  <div style={{marginLeft: 30}}>
+                  <Image src="/fourWheeler.png" width={10} />
+                  <CountUp end={data?.vehicleTypeCounts.FOUR ? data.vehicleTypeCounts.FOUR : 0} duration={5} />
+                  </div>
+
+                  <div style={{marginLeft: 30}}>
+                  <Image src="/bus.png" width={10} />
+                  <CountUp end={data?.vehicleTypeCounts.BUS ? data.vehicleTypeCounts.BUS : 0} duration={5} />
+                  </div>                  
+                </Flex>
+
+                <Text>
+                    <Text as="span" fontWeight="bold">
+                      Total Vehicles:{" "}
+                    </Text>
+                    <CountUp end={data?.totalVehicles} duration={5} />
                   </Text>
+
                   <Text>
                     <Text as="span" fontWeight="bold">
-                      Total Vehicles Parked:{" "}
+                      Total Cash:{" "}
                     </Text>
-                    <CountUp end={data.totalVehiclesParked} duration={5} />
+                    <CountUp end={data?.totalAmount} duration={5} />
                   </Text>
-                  <Text>
-                    <Text as="span" fontWeight="bold">
-                      Total Revenue:{" "}
-                    </Text>
-                    <CountUp end={data.totalRevenue} duration={5} />
-                  </Text>
+
                 </Box>
               ))}
             </SimpleGrid>

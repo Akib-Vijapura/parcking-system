@@ -18,6 +18,7 @@ const getEntriesForToday = async () => {
     }
 };
 
+/*
 const groupEntriesByWindowNo = (entries) => {
     const groupedEntries = {};
   
@@ -29,6 +30,27 @@ const groupEntriesByWindowNo = (entries) => {
       }
   
       groupedEntries[windowNo].push(entry);
+    });
+  
+    return groupedEntries;
+  };*/
+
+  const groupEntriesByWindowNo = (entries) => {
+    const groupedEntries = [];
+  
+    entries.forEach((entry) => {
+      const windowNo = entry.windowNo;
+  
+      // Check if there's an object with the same windowNo in groupedEntries
+      const existingEntry = groupedEntries.find((group) => group.windowNo === windowNo);
+  
+      if (!existingEntry) {
+        // If not, create a new object and push it to groupedEntries
+        groupedEntries.push({ windowNo, entries: [entry] });
+      } else {
+        // If yes, add the entry to the existing group
+        existingEntry.entries.push(entry);
+      }
     });
   
     return groupedEntries;
