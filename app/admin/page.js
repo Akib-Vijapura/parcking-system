@@ -61,15 +61,17 @@ const Page = () => {
 
   const getDashboardData = async () => {
     setLoading(true);
+    try{
     const response = await axios.get("/api/dashboard");
 
-    if (response.status === 200) {
-      setTodaysData(response.data.todaysData[0]);
-      setLastMonthsData(response.data.lastMonthData[0]);
-      setLastQuaterData(response.data.lastQuarterData[0]);
-      setLastYearsData(response.data.lastYearData[0]);
-    } else {
-      console.log("FAILED to get VEHICLES");
+      if (response.status === 200) {
+        setTodaysData(response.data.todaysData[0]);
+        setLastMonthsData(response.data.lastMonthData[0]);
+        setLastQuaterData(response.data.lastQuarterData[0]);
+        setLastYearsData(response.data.lastYearData[0]);
+      }
+    } catch (err) {
+      console.log("FAILED to get VEHICLES err=", err);
 
       toast({
         title: "Failed to get Vehicles details, try again",
