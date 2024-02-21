@@ -257,60 +257,69 @@ const Page = () => {
               ))}
             </SimpleGrid>
           ) : (
-            <SimpleGrid columns={[1, 2]} spacingX={10} spacingY={10}>
-              {[
-                {
-                  data: getCounterData('1'),
-                  title: "Window 1",
-                  bg: "#2D9596",
-                },
-                {
-                  data: getCounterData('2'),
-                  title: "Window 2",
-                  bg: "#59B4C3",
-                },
-                {
-                  data: getCounterData('3'),
-                  title: "Window 3",
-                  bg: "blue.500",
-                },
-                {
-                  data: getCounterData('4'),
-                  title: "Window 4",
-                  bg: "#836FFF",
-                },
-                {
-                  data: getCounterData('5'),
-                  title: "Window 5",
-                  bg: "#836FFF",
-                },
-                {
-                  data: getCounterData('6'),
-                  title: "Window 6",
-                  bg: "#836FFF",
-                },
-              ].map(({ data, title, bg }, index) => (
-                <Box
-                  key={index}
-                  p={6}
-                  shadow="md"
-                  borderWidth="1px"
-                  borderRadius="md"
-                  bg="white"
-                  _hover={{ boxShadow: "lg" }}
-                  width={"100%"}
-                  mb={4}
-                >
-                  <Flex
-                    justifyContent="space-between"
-                    alignItems="center"
-                    mb={2}
+            <Box>
+              <Text fontSize={50} fontWeight="bold" color="teal.500">
+                Today's Vehicle Data
+              </Text>
+              <SimpleGrid
+                columns={[1, 2, 3]}
+                mt={20}
+                spacingX={10}
+                spacingY={10}
+              >
+                {[
+                  {
+                    data: getCounterData("1"),
+                    title: "Window 1",
+                    bg: "#2D9596",
+                  },
+                  {
+                    data: getCounterData("2"),
+                    title: "Window 2",
+                    bg: "#59B4C3",
+                  },
+                  {
+                    data: getCounterData("3"),
+                    title: "Window 3",
+                    bg: "blue.500",
+                  },
+                  {
+                    data: getCounterData("4"),
+                    title: "Window 4",
+                    bg: "#836FFF",
+                  },
+                  {
+                    data: getCounterData("5"),
+                    title: "Window 5",
+                    bg: "#836FFF",
+                  },
+                  {
+                    data: getCounterData("6"),
+                    title: "Window 6",
+                    bg: "#836FFF",
+                  },
+                ].map(({ data, title, bg }, index) => (
+                  <Box
+                    key={index}
+                    p={6}
+                    shadow="md"
+                    borderWidth="1px"
+                    borderRadius="md"
+                    bg="white"
+                    _hover={{ boxShadow: "lg" }}
+                    width={"100%"}
+                    mb={4}
                   >
-                    <Text fontSize="xl" fontWeight="bold" color="teal.500">
-                      {title}
-                    </Text>
-                  </Flex>
-                  {/*<Text>
+                    <Flex
+                      justifyContent="space-between"
+                      alignItems="center"
+                      mb={2}
+                    >
+                      <Text fontSize="xl" fontWeight="bold" color="teal.500">
+                        {title}
+                      </Text>
+                    </Flex>
+                    {/*<Text>
                     <Text as="span" fontWeight="bold">
                       From:{" "}
                     </Text>
@@ -322,45 +331,73 @@ const Page = () => {
                     </Text>
                     {getDateTimeFormatted(data.endDate)}
               </Text>*/}
-                <Flex direction={"row"}>
-                  <div>
-                  <Image src="/twoWheeler.png" width={10} />
-                  <CountUp end={data?.vehicleTypeCounts.TWO ? data.vehicleTypeCounts.TWO : 0} duration={5} />
-                  </div>
+                    <Flex direction={"row"}>
+                      <div>
+                        <Image src="/twoWheeler.png" width={10} />
+                        <CountUp
+                          end={
+                            data?.vehicleTypeCounts.TWO
+                              ? data.vehicleTypeCounts.TWO
+                              : 0
+                          }
+                          duration={5}
+                        />
+                      </div>
 
-                  <div style={{marginLeft: 30}}>
-                  <Image src="/threeWheeler.png" width={10} />
-                  <CountUp end={data?.vehicleTypeCounts.THREE ? data.vehicleTypeCounts.THREE : 0} duration={5} />
-                  </div>
+                      <div style={{ marginLeft: 30 }}>
+                        <Image src="/threeWheeler.png" width={10} />
+                        <CountUp
+                          end={
+                            data?.vehicleTypeCounts.THREE
+                              ? data.vehicleTypeCounts.THREE
+                              : 0
+                          }
+                          duration={5}
+                        />
+                      </div>
 
-                  <div style={{marginLeft: 30}}>
-                  <Image src="/fourWheeler.png" width={10} />
-                  <CountUp end={data?.vehicleTypeCounts.FOUR ? data.vehicleTypeCounts.FOUR : 0} duration={5} />
-                  </div>
+                      <div style={{ marginLeft: 30 }}>
+                        <Image src="/fourWheeler.png" width={10} />
+                        <CountUp
+                          end={
+                            data?.vehicleTypeCounts.FOUR
+                              ? data.vehicleTypeCounts.FOUR
+                              : 0
+                          }
+                          duration={5}
+                        />
+                      </div>
 
-                  <div style={{marginLeft: 30}}>
-                  <Image src="/bus.png" width={10} />
-                  <CountUp end={data?.vehicleTypeCounts.BUS ? data.vehicleTypeCounts.BUS : 0} duration={5} />
-                  </div>                  
-                </Flex>
+                      <div style={{ marginLeft: 30 }}>
+                        <Image src="/bus.png" width={10} />
+                        <CountUp
+                          end={
+                            data?.vehicleTypeCounts.BUS
+                              ? data.vehicleTypeCounts.BUS
+                              : 0
+                          }
+                          duration={5}
+                        />
+                      </div>
+                    </Flex>
 
-                <Text>
-                    <Text as="span" fontWeight="bold">
-                      Total Vehicles:{" "}
+                    <Text>
+                      <Text as="span" fontWeight="bold">
+                        Total Vehicles:{" "}
+                      </Text>
+                      <CountUp end={data?.totalVehicles} duration={5} />
                     </Text>
-                    <CountUp end={data?.totalVehicles} duration={5} />
-                  </Text>
 
-                  <Text>
-                    <Text as="span" fontWeight="bold">
-                      Total Cash:{" "}
+                    <Text>
+                      <Text as="span" fontWeight="bold">
+                        Total Cash:{" "}
+                      </Text>
+                      <CountUp end={data?.totalAmount} duration={5} />
                     </Text>
-                    <CountUp end={data?.totalAmount} duration={5} />
-                  </Text>
-
-                </Box>
-              ))}
-            </SimpleGrid>
+                  </Box>
+                ))}
+              </SimpleGrid>
+            </Box>
           )}
         </Flex>
       )}

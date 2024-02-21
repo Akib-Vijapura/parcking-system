@@ -19,6 +19,7 @@ import {
   IconButton,
   useToast,
   Spinner,
+  Select,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, AddIcon } from "@chakra-ui/icons";
 import Sidebar from "@/app/components/Sidebar";
@@ -36,6 +37,8 @@ const Page = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedUserIndex, setSelectedUserIndex] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [usedWindowNumbers, setUsedWindowNumbers] = useState([]);
+  const [availableWindowNumbers, setAvailableWindowNumbers] = useState([]);
   const toast = useToast();
 
   const getUsers = async () => {
@@ -57,10 +60,27 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (users.length == 0) {
+    if (users.length === 0) {
       getUsers();
     }
   }, [users]);
+
+  useEffect(() => {
+    const usedNumbers = users.map((user) => user.windowNo);
+    setUsedWindowNumbers(usedNumbers);
+  }, [users]);
+
+  useEffect(() => {
+    const allWindowNumbers = ["1", "2", "3", "4", "5", "6"];
+
+    // Convert users array to string to handle below function
+    const newUsedWindowNumbers = usedWindowNumbers.map((num) => num.toString());
+    const availableNumbers = allWindowNumbers.filter(
+      (number) => !newUsedWindowNumbers.includes(number)
+    );
+    setAvailableWindowNumbers(availableNumbers);
+  }, [usedWindowNumbers]);
+  console.log(usedWindowNumbers);
 
   const handleSubmit = async () => {
     try {
@@ -225,7 +245,7 @@ const Page = () => {
                     <strong>Username:</strong> {user.username}
                   </Text>
                   <Text>
-                    {/* <strong>Password:</strong> {user.password} */}
+                     {/*<strong>Password:</strong> {user.password} */}
                   </Text>
                   <Text>
                     <strong>Window Number:</strong> {user.windowNo}
@@ -259,11 +279,17 @@ const Page = () => {
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Window Number</FormLabel>
-              <Input
-                type="number"
+              <Select
+                placeholder="Select option"
                 value={windowNo}
                 onChange={(e) => setWindowNo(e.target.value)}
-              />
+              >
+                {availableWindowNumbers.map((number) => (
+                  <option key={number} value={number}>
+                    {number}
+                  </option>
+                ))}
+              </Select>
             </FormControl>
           </ModalBody>
           <ModalFooter>
