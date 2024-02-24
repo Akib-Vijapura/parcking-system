@@ -71,12 +71,10 @@ const Page = () => {
   }, [users]);
 
   useEffect(() => {
-    const allWindowNumbers = ["1", "2", "3", "4", "5", "6"];
+    const allWindowNumbers = [1, 2, 3, 4, 5, 6];
 
-    // Convert users array to string to handle below function
-    const newUsedWindowNumbers = usedWindowNumbers.map((num) => num.toString());
     const availableNumbers = allWindowNumbers.filter(
-      (number) => !newUsedWindowNumbers.includes(number)
+      (number) => !usedWindowNumbers.includes(number)
     );
     setAvailableWindowNumbers(availableNumbers);
   }, [usedWindowNumbers]);
@@ -123,13 +121,24 @@ const Page = () => {
       setPassword("");
       setWindowNo("");
     } catch (error) {
-      toast({
-        title: "Operation failed",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
+      if (error.response.status === 400) {
+        toast({
+          title: "User already exists",
+          description: "Please try with different username",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-right",
+        });
+      } else {
+        toast({
+          title: "Operation failed",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-right",
+        });
+      }
     }
   };
 
@@ -244,9 +253,7 @@ const Page = () => {
                   <Text>
                     <strong>Username:</strong> {user.username}
                   </Text>
-                  <Text>
-                     {/*<strong>Password:</strong> {user.password} */}
-                  </Text>
+                  <Text>{/*<strong>Password:</strong> {user.password} */}</Text>
                   <Text>
                     <strong>Window Number:</strong> {user.windowNo}
                   </Text>

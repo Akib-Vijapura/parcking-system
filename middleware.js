@@ -35,10 +35,10 @@ export async function middleware (request) {
   //https://nextjs.org/docs/messages/returning-response-body-in-middleware
   //https://medium.com/sopra-steria-norge/how-to-write-actual-api-middleware-for-next-js-2a38355f6674
   if(path.startsWith("/admin") && isAdmin_) {
-    console.log("admin is allowed for this route")
+    // console.log("admin is allowed for this route")
     return NextResponse.next()
   } else if(path.startsWith("/admin") && !isAdmin_) {
-    console.log("ACCESS DENIED: only admin is allowed for this route")
+    // console.log("ACCESS DENIED: only admin is allowed for this route")
     //let response = NextResponse.json({error: "ACCESS DENIED: only admin is allowed for this route"}, {status: 301}) //301 -> redirect
     //console.log("DENIED response1 = ", response)
     //return response;
