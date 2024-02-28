@@ -118,7 +118,7 @@ export async function GET(req,res) {
     //console.log('Grouped Entries:', groupedEntries);
 
     return NextResponse.json({
-        //todaysEntries,
+        todaysEntries,
         groupedEntries
     });
 
