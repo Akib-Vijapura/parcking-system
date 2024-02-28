@@ -10,7 +10,8 @@ import {
   Box,
   IconButton,
   Grid,
-  Image
+  Image,
+  Button
 } from "@chakra-ui/react";
 import axios from "axios";
 import CountUp from "react-countup";
@@ -19,6 +20,8 @@ import { FaCar } from "react-icons/fa";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { FiGrid, FiList } from "react-icons/fi";
 import ClipLoader from "react-spinners/ClipLoader";
+import { CSVLink } from "react-csv";
+import { DownloadIcon } from "@chakra-ui/icons";
 
 const Page = () => {
   const toast = useToast();
@@ -31,6 +34,7 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState("grid");
   const [countersData, setCountersData] = useState([]);
+  const [counterDataForDownload, setCounterDataForDownload] = useState();
 
   const dateOptions = {
     weekday: "short",
@@ -95,6 +99,9 @@ const Page = () => {
 
       if (response.status === 200) {
         setCountersData(response.data.groupedEntries)
+       // console.log("data=",response.data.groupedEntries)
+        setCounterDataForDownload(response.data.todaysEntries)
+        //console.log("data=",response.data.todaysEntries)
       }
     } catch (err) {
       console.log("FAILED to get TODAY's COUNTER DATA err=", err);
@@ -147,7 +154,7 @@ const Page = () => {
     }
 
     setLoading(false);
-  }, [selectedTab, todaysData, lastMonthsData, lastQuaterData, lastYearsData, countersData]);
+  }, [loading]);
 
   return (
     <Flex direction="row" w="full" h="screen" alignItems="flex-start">
@@ -259,11 +266,21 @@ const Page = () => {
           ) : (
             <Box>
               <Text fontSize={50} fontWeight="bold" color="teal.500">
-                Today's Vehicle Data
+                Today's Counter Data
               </Text>
+              <CSVLink
+                data={counterDataForDownload}
+                filename={"water-ville-parking-today-counter-data.csv"}
+                className="btn btn-primary"
+                target="_blank"
+              >
+                <Button mb={5} colorScheme="teal" rightIcon={<DownloadIcon />}>
+                  Export Today's Counter Data
+                </Button>
+              </CSVLink>
               <SimpleGrid
                 columns={[1, 2, 3]}
-                mt={20}
+                mt={15}
                 spacingX={10}
                 spacingY={10}
               >
