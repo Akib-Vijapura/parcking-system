@@ -53,7 +53,7 @@ const Sidebar = () => {
       router.push(`/admin/vehiclepricing`);
     } else if (title === "client") {
       router.push("/admin/addclient");
-    }else if (title === "Analitics") {
+    }else if (title === "analytics") {
       router.push("/admin/chart");
     }
   };
@@ -134,9 +134,9 @@ const Sidebar = () => {
          <NavItem
           navSize={navSize}
           icon={SiSimpleanalytics}
-          title="Analitics"
-          active={activeItem === "Analitics"}
-          onClick={() => handleItemClick("Analitics")}
+          title="Analytics"
+          active={activeItem === "analytics"}
+          onClick={() => handleItemClick("analytics")}
         />
         {/*
         <NavItem
