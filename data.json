@@ -1,0 +1,561 @@
+[{
+        "_id": "65c1fba6955597848610af48",
+        "vehicleNumber": "GJ09AS0744",
+        "vehicleType": "THREE",
+        "vehicleCharge": 22,
+        "dateTime": "2024-02-06T07:45:02.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbcf955597848610af51",
+        "vehicleNumber": "MH10AS1231",
+        "vehicleType": "FOUR",
+        "vehicleCharge": 33,
+        "dateTime": "2023-05-15T11:20:30.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbd3955597848610af56",
+        "vehicleNumber": "RJ01AS0744",
+        "vehicleType": "TWO",
+        "vehicleCharge": 11,
+        "dateTime": "2022-08-22T14:10:45.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbd9955597848610af5b",
+        "vehicleNumber": "KA09AS9999",
+        "vehicleType": "TWO",
+        "vehicleCharge": 11,
+        "dateTime": "2023-03-17T06:15:25.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbdf955597848610af60",
+        "vehicleNumber": "RJ05AB3452",
+        "vehicleType": "FOUR",
+        "vehicleCharge": 33,
+        "dateTime": "2024-01-10T09:55:10.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbe5955597848610af65",
+        "vehicleNumber": "HR12AS0983",
+        "vehicleType": "BUS",
+        "vehicleCharge": 44,
+        "dateTime": "2024-11-22T13:40:50.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbe5955597848610af66",
+        "vehicleNumber": "MH02AB5678",
+        "vehicleType": "FOUR",
+        "vehicleCharge": 35,
+        "dateTime": "2022-07-05T16:25:15.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbe5955597848610af67",
+        "vehicleNumber": "GJ11XY1234",
+        "vehicleType": "TWO",
+        "vehicleCharge": 18,
+        "dateTime": "2023-12-12T10:10:10.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbe5955597848610af68",
+        "vehicleNumber": "UP32ZZ4321",
+        "vehicleType": "THREE",
+        "vehicleCharge": 27,
+        "dateTime": "2024-03-03T05:05:05.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbe5955597848610af69",
+        "vehicleNumber": "RJ10BB0987",
+        "vehicleType": "BUS",
+        "vehicleCharge": 50,
+        "dateTime": "2023-10-10T08:20:30.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbf5955597848610af70",
+        "vehicleNumber": "GJ15CD4321",
+        "vehicleType": "FOUR",
+        "vehicleCharge": 40,
+        "dateTime": "2022-11-25T12:12:12.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fbff955597848610af71",
+        "vehicleNumber": "MH20EF6543",
+        "vehicleType": "THREE",
+        "vehicleCharge": 24,
+        "dateTime": "2023-06-30T14:30:30.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc08955597848610af72",
+        "vehicleNumber": "RJ18GH0987",
+        "vehicleType": "TWO",
+        "vehicleCharge": 16,
+        "dateTime": "2024-09-18T16:45:45.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc11955597848610af73",
+        "vehicleNumber": "KA22IJ6543",
+        "vehicleType": "BUS",
+        "vehicleCharge": 45,
+        "dateTime": "2022-04-12T09:50:50.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc1b955597848610af74",
+        "vehicleNumber": "HR05KL8765",
+        "vehicleType": "FOUR",
+        "vehicleCharge": 32,
+        "dateTime": "2023-02-10T15:15:15.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc25955597848610af75",
+        "vehicleNumber": "MH30MN5432",
+        "vehicleType": "THREE",
+        "vehicleCharge": 20,
+        "dateTime": "2024-07-20T07:07:07.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc2f955597848610af76",
+        "vehicleNumber": "GJ25OP9876",
+        "vehicleType": "TWO",
+        "vehicleCharge": 14,
+        "dateTime": "2022-05-22T18:18:18.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc39955597848610af77",
+        "vehicleNumber": "UP07QR6543",
+        "vehicleType": "BUS",
+        "vehicleCharge": 47,
+        "dateTime": "2023-01-15T19:19:19.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc43955597848610af78",
+        "vehicleNumber": "RJ22ST8765",
+        "vehicleType": "FOUR",
+        "vehicleCharge": 38,
+        "dateTime": "2024-06-28T08:08:08.944Z",
+        "__v": 0
+    },
+    {
+        "_id": "65c1fc4d955597848610af79",
+        "vehicleNumber": "MH35UV5432",
+        "vehicleType": "THREE",
+        "vehicleCharge": 23,
+        "dateTime": "2023-03-03T20:20:20.944Z",
+        "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af80",
+      "vehicleNumber": "GJ01AB1234",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 36,
+      "dateTime": "2022-02-05T10:15:30.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af81",
+      "vehicleNumber": "MH02CD5678",
+      "vehicleType": "THREE",
+      "vehicleCharge": 25,
+      "dateTime": "2023-11-20T14:45:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af82",
+      "vehicleNumber": "RJ03EF9876",
+      "vehicleType": "TWO",
+      "vehicleCharge": 19,
+      "dateTime": "2024-06-12T18:30:10.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af83",
+      "vehicleNumber": "KA04GH4321",
+      "vehicleType": "BUS",
+      "vehicleCharge": 46,
+      "dateTime": "2023-07-25T09:50:20.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af84",
+      "vehicleNumber": "HR05IJ8765",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 34,
+      "dateTime": "2022-03-18T12:35:40.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af85",
+      "vehicleNumber": "UP06KL1234",
+      "vehicleType": "THREE",
+      "vehicleCharge": 28,
+      "dateTime": "2024-08-29T16:55:15.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af86",
+      "vehicleNumber": "PB07MN5678",
+      "vehicleType": "TWO",
+      "vehicleCharge": 20,
+      "dateTime": "2023-12-10T20:05:05.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af87",
+      "vehicleNumber": "WB08OP9876",
+      "vehicleType": "BUS",
+      "vehicleCharge": 42,
+      "dateTime": "2022-05-22T08:20:20.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af88",
+      "vehicleNumber": "CH09QR4321",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 31,
+      "dateTime": "2024-01-30T11:10:30.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af89",
+      "vehicleNumber": "DL10ST8765",
+      "vehicleType": "THREE",
+      "vehicleCharge": 26,
+      "dateTime": "2023-09-05T13:15:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af90",
+      "vehicleNumber": "GJ11UV1234",
+      "vehicleType": "TWO",
+      "vehicleCharge": 21,
+      "dateTime": "2022-12-19T19:45:10.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af91",
+      "vehicleNumber": "MH12WX5678",
+      "vehicleType": "BUS",
+      "vehicleCharge": 43,
+      "dateTime": "2024-04-28T07:30:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af92",
+      "vehicleNumber": "RJ13YZ9876",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 39,
+      "dateTime": "2023-03-11T10:20:15.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af93",
+      "vehicleNumber": "KA14AB4321",
+      "vehicleType": "THREE",
+      "vehicleCharge": 24,
+      "dateTime": "2022-10-13T12:40:25.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af94",
+      "vehicleNumber": "HR15CD8765",
+      "vehicleType": "TWO",
+      "vehicleCharge": 17,
+      "dateTime": "2024-07-14T16:05:35.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af95",
+      "vehicleNumber": "UP16EF1234",
+      "vehicleType": "BUS",
+      "vehicleCharge": 44,
+      "dateTime": "2023-06-02T14:50:45.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af96",
+      "vehicleNumber": "PB17GH5678",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 33,
+      "dateTime": "2022-01-09T20:25:55.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af97",
+      "vehicleNumber": "WB18IJ9876",
+      "vehicleType": "THREE",
+      "vehicleCharge": 29,
+      "dateTime": "2024-03-24T08:45:10.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af98",
+      "vehicleNumber": "CH19KL4321",
+      "vehicleType": "TWO",
+      "vehicleCharge": 22,
+      "dateTime": "2023-11-01T11:35:30.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af99",
+      "vehicleNumber": "DL20MN8765",
+      "vehicleType": "BUS",
+      "vehicleCharge": 41,
+      "dateTime": "2022-06-17T09:10:45.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af100",
+      "vehicleNumber": "GJ21OP1234",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 30,
+      "dateTime": "2024-12-23T16:20:05.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af101",
+      "vehicleNumber": "MH22QR5678",
+      "vehicleType": "THREE",
+      "vehicleCharge": 27,
+      "dateTime": "2023-05-08T18:55:25.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af102",
+      "vehicleNumber": "RJ23ST9876",
+      "vehicleType": "TWO",
+      "vehicleCharge": 18,
+      "dateTime": "2022-02-03T07:35:15.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af103",
+      "vehicleNumber": "KA24UV4321",
+      "vehicleType": "BUS",
+      "vehicleCharge": 40,
+      "dateTime": "2024-08-05T13:15:35.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af104",
+      "vehicleNumber": "HR25WX8765",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 32,
+      "dateTime": "2023-10-22T20:25:45.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af105",
+      "vehicleNumber": "UP26YZ1234",
+      "vehicleType": "THREE",
+      "vehicleCharge": 26,
+      "dateTime": "2022-07-11T09:50:55.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af106",
+      "vehicleNumber": "PB27AB5678",
+      "vehicleType": "TWO",
+      "vehicleCharge": 19,
+      "dateTime": "2024-05-29T11:10:20.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af107",
+      "vehicleNumber": "WB28CD9876",
+      "vehicleType": "BUS",
+      "vehicleCharge": 45,
+      "dateTime": "2023-08-13T07:20:40.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af108",
+      "vehicleNumber": "CH29EF4321",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 31,
+      "dateTime": "2022-04-07T12:30:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af109",
+      "vehicleNumber": "DL30GH8765",
+      "vehicleType": "THREE",
+      "vehicleCharge": 25,
+      "dateTime": "2024-01-15T14:05:05.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af110",
+      "vehicleNumber": "GJ31IJ1234",
+      "vehicleType": "TWO",
+      "vehicleCharge": 20,
+      "dateTime": "2023-09-10T19:15:10.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af111",
+      "vehicleNumber": "MH32KL5678",
+      "vehicleType": "BUS",
+      "vehicleCharge": 47,
+      "dateTime": "2022-03-05T08:35:20.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af112",
+      "vehicleNumber": "RJ33MN9876",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 38,
+      "dateTime": "2024-11-19T13:20:30.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af113",
+      "vehicleNumber": "KA34OP4321",
+      "vehicleType": "THREE",
+      "vehicleCharge": 24,
+      "dateTime": "2023-06-18T10:45:40.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af114",
+      "vehicleNumber": "HR35QR8765",
+      "vehicleType": "TWO",
+      "vehicleCharge": 17,
+      "dateTime": "2022-10-27T07:55:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af115",
+      "vehicleNumber": "UP36ST1234",
+      "vehicleType": "BUS",
+      "vehicleCharge": 44,
+      "dateTime": "2024-02-01T11:05:55.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af116",
+      "vehicleNumber": "PB37UV5678",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 35,
+      "dateTime": "2023-12-28T09:20:25.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af117",
+      "vehicleNumber": "WB38WX9876",
+      "vehicleType": "THREE",
+      "vehicleCharge": 28,
+      "dateTime": "2022-01-30T18:45:10.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af118",
+      "vehicleNumber": "CH39YZ4321",
+      "vehicleType": "TWO",
+      "vehicleCharge": 21,
+      "dateTime": "2024-09-07T10:10:30.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af119",
+      "vehicleNumber": "DL40AB8765",
+      "vehicleType": "BUS",
+      "vehicleCharge": 43,
+      "dateTime": "2023-03-03T07:35:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af120",
+      "vehicleNumber": "GJ41CD1234",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 30,
+      "dateTime": "2022-12-22T16:50:05.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af121",
+      "vehicleNumber": "MH42EF5678",
+      "vehicleType": "THREE",
+      "vehicleCharge": 26,
+      "dateTime": "2024-06-06T14:05:25.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af122",
+      "vehicleNumber": "RJ43GH9876",
+      "vehicleType": "TWO",
+      "vehicleCharge": 19,
+      "dateTime": "2023-08-13T18:20:35.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af123",
+      "vehicleNumber": "KA44IJ4321",
+      "vehicleType": "BUS",
+      "vehicleCharge": 46,
+      "dateTime": "2022-05-25T08:30:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af124",
+      "vehicleNumber": "HR45KL8765",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 33,
+      "dateTime": "2024-10-31T12:15:15.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af125",
+      "vehicleNumber": "UP46MN1234",
+      "vehicleType": "THREE",
+      "vehicleCharge": 27,
+      "dateTime": "2023-07-21T09:40:20.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af126",
+      "vehicleNumber": "PB47OP5678",
+      "vehicleType": "TWO",
+      "vehicleCharge": 18,
+      "dateTime": "2022-11-18T11:10:45.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af127",
+      "vehicleNumber": "WB48QR9876",
+      "vehicleType": "BUS",
+      "vehicleCharge": 45,
+      "dateTime": "2024-01-28T20:55:50.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af128",
+      "vehicleNumber": "CH49ST4321",
+      "vehicleType": "FOUR",
+      "vehicleCharge": 32,
+      "dateTime": "2023-05-16T10:20:10.944Z",
+      "__v": 0
+    },
+    {
+      "_id": "65c1fbe5955597848610af129",
+      "vehicleNumber": "DL50UV8765",
+      "vehicleType": "THREE",
+      "vehicleCharge": 25,
+      "dateTime": "2022-03-29T12:30:05.944Z",
+      "__v": 0
+    }
+]

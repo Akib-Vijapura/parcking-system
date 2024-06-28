@@ -13,12 +13,8 @@ import {
 import { useState, useEffect } from "react";
 import {
   FiMenu,
-  FiHome,
   FiUser,
   FiShoppingCart,
-  FiDollarSign,
-  FiBriefcase,
-  FiSettings,
 } from "react-icons/fi";
 import { IoCarOutline } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
@@ -26,6 +22,7 @@ import { IoPricetagsOutline } from "react-icons/io5";
 import NavItem from "./NavItem";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import { SiSimpleanalytics } from "react-icons/si";
 
 const Sidebar = () => {
   const [navSize, setNavSize] = useState("large");
@@ -56,6 +53,8 @@ const Sidebar = () => {
       router.push(`/admin/vehiclepricing`);
     } else if (title === "client") {
       router.push("/admin/addclient");
+    }else if (title === "Analitics") {
+      router.push("/admin/chart");
     }
   };
 
@@ -103,7 +102,7 @@ const Sidebar = () => {
           }}
         />
 
-        <Image src="/logo.png" alt="Logo" />
+        <Image style={{width : "180px"}} src="/logo.png" alt="Logo" />
         <NavItem
           navSize={navSize}
           icon={RxDashboard}
@@ -132,13 +131,14 @@ const Sidebar = () => {
           active={activeItem === "client"}
           onClick={() => handleItemClick("client")}
         />
-        {/* <NavItem
+         <NavItem
           navSize={navSize}
-          icon={FiShoppingCart}
-          title="Orders"
-          active={activeItem === "Orders"}
-          onClick={() => handleItemClick("Orders")}
+          icon={SiSimpleanalytics}
+          title="Analitics"
+          active={activeItem === "Analitics"}
+          onClick={() => handleItemClick("Analitics")}
         />
+        {/*
         <NavItem
           navSize={navSize}
           icon={FiDollarSign}
